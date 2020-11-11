@@ -21,6 +21,9 @@ class LoginForm extends React.Component {
                             <InputField type='text' placeholder='Password'/>
                         </div>
                         <SubmitButton text='Login'/>
+                       <div className="form-group mt-3">
+                        <small>Forgot your password? Contact <a href="#">administrator</a> for assistant.</small>
+                       </div>
                     </div>
                 </div>
                 </div>

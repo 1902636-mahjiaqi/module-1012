@@ -30,16 +30,77 @@ class App extends React.Component {
               )}
           }/>
 
-          {/* register page */}
-          <Route path="/register" render={
+          {/* student home page here - gamified system */}
+          <Route path="/home" render={
             ()=> { return (
                 <div>
                   <Header/>
-                  <h1>insert register form here</h1>
+                  {/* insert page content here */}
                 </div>
               )}
           }/>
 
+          {/* student feedback page */}
+          <Route path="/feedback" render={
+            ()=> { return (
+                <div>
+                  <Header/>
+                  {/* insert page content here */}
+                </div>
+              )}
+          }/>     
+          
+          {/* professor manage module page */}
+          <Route path="/manage-module" render={
+            ()=> { return (
+                <div>
+                  <Header/>
+                  {/* insert page content here */}
+                </div>
+              )}
+          }/> 
+
+          {/* professor create module page */}
+          <Route path="/create-module" render={
+            ()=> { return (
+                <div>
+                  <Header/>
+                  {/* insert page content here */}
+                </div>
+              )}
+          }/> 
+
+          {/* professor create component page */}
+          <Route path="/create-component" render={
+            ()=> { return (
+                <div>
+                  <Header/>
+                  {/* insert page content here */}
+                </div>
+              )}
+          }/> 
+
+          {/* professor manage class list page */}
+          <Route path="/manage-class" render={
+            ()=> { return (
+                <div>
+                  <Header/>
+                  {/* insert page content here */}
+                </div>
+              )}
+          }/> 
+
+
+          {/* administrator account page */}
+          <Route path="/account" render={
+            ()=> { return (
+                <div>
+                  <Header/>
+                  {/* insert page content here */}
+                </div>
+              )}
+          }/> 
+ 
         </div>
       </Router>
     );
