@@ -18,7 +18,10 @@ class App extends React.Component {
     return (
       <Router>
         <div className="app bg-dark">
-          <Route path="/" render={
+          {/* insert route here */}
+          
+          {/* login page */}
+          <Route path="/" exact={ true } render={
             ()=> { return (
                 <div>
                   <Header/>
@@ -26,6 +29,17 @@ class App extends React.Component {
                 </div>
               )}
           }/>
+
+          {/* register page */}
+          <Route path="/register" render={
+            ()=> { return (
+                <div>
+                  <Header/>
+                  <h1>insert register form here</h1>
+                </div>
+              )}
+          }/>
+
         </div>
       </Router>
     );
