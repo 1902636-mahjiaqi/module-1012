@@ -1,21 +1,24 @@
-import React from 'react';
-import Header from './app_components/Header';
-import MainContent from './app_components/MainContent';
-import Footer from './app_components/Footer';
+import React        from 'react';
+
+import $            from "jquery";
+import Popper       from "popper.js";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import '../resources/stylesheet/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from "jquery";
-import Popper from "popper.js";
-import "bootstrap/dist/js/bootstrap.bundle.min";
 
-function App() {
-  return (
-    <div>
-        <Header />
-        <MainContent />
-        <Footer />
-    </div>
-  );
+import Header       from './app_components/Header';
+import LoginForm    from './app_components/LoginForm';
+
+class App extends React.Component {
+
+  render() {
+    return (
+      <div className="app bg-dark">
+        <Header/>
+        <LoginForm/>
+      </div>
+    );
+  }
 }
 
-export default App
+export default App;
