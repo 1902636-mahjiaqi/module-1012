@@ -9,14 +9,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header       from './app_components/Header';
 import LoginForm    from './app_components/LoginForm';
 
+import { BrowserRouter as Router } from 'react-router-dom';
+import Route from 'react-router-dom/Route';
+
 class App extends React.Component {
 
   render() {
     return (
-      <div className="app bg-dark">
-        <Header/>
-        <LoginForm/>
-      </div>
+      <Router>
+        <div className="app bg-dark">
+          <Route path="/" render={
+            ()=> { return (
+                <div>
+                  <Header/>
+                  <LoginForm/>
+                </div>
+              )}
+          }/>
+        </div>
+      </Router>
     );
   }
 }
