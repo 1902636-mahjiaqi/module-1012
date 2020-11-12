@@ -6,7 +6,7 @@ define("DBUSER", "sql12374841");
 define("DBPASS", "GBpfzhtYQ5");
 
 $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-if(!conn) {
+if(!$conn) {
   die('Could not connect: ' . mysqli_connect_errno());
 }
 
