@@ -1,0 +1,10 @@
+/* 
+ * custom stylesheet here 
+ */
+
+/* bootstrap modifications */
+.jumbotron { margin: 1% !important; }
+.container-fluid, .container { margin-top: 30px !important;}
+
+/* nav bar */
+.navbar-text { display: inline-block; padding-top: .0rem !important;  padding-bottom: .0rem !important; }
