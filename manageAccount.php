@@ -20,9 +20,6 @@
             </div>
 
           <!-- content table -->
-          <div>
-            
-          </div>
           <table class="table table-borderless table-hover">
             <thead>
               <tr>
@@ -84,6 +81,8 @@
               <button type="button" class="btn btn-danger">Save changes</button>
             </div>
             </div>
+            <!-- end of modal -->
+
           </div>
         </div>
       </div>
