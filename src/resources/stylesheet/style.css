@@ -1,8 +1,0 @@
-/* 
-    custom stylesheet here
-*/
-html, body, #root, #root>div { height: 100% !important; width:100% !important; }
-footer { padding: 10 0; }
-.container-fluid, .container { margin-top: 30px !important;}
-.navbar-text { display: inline-block; padding-top: .0rem !important;  padding-bottom: .0rem !important; }
-.jumbotron { margin: 1% !important; }
