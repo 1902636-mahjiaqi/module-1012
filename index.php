@@ -1,5 +1,4 @@
 <?php
-
   session_start();
   if (isset($_SESSION['sessionToken'])) {
     if($_SESSION['sessionToken'] -> getTypeOfUser() == "2") {
@@ -17,7 +16,6 @@
     unset($_SESSION["sessionToken"]);
     session_destroy();
   }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

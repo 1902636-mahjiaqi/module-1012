@@ -8,3 +8,6 @@
 
 /* nav bar */
 .navbar-text { display: inline-block; padding-top: .0rem !important;  padding-bottom: .0rem !important; }
+
+/* table content */
+table td { vertical-align: middle !important; }
