@@ -27,7 +27,10 @@
     <title> Learning Board </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, inital-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <!-- BootStrap include: this will include all needed files for BootStrap 4.3.1 -->
+    <?php include "css/BootStp.php" ?>
+    <!-- Below is the old css that does not use BootStrap -->
+    <!--<link rel="stylesheet" type="text/css" href="css/login.css">-->
   </head>
   <body>
 
