@@ -23,7 +23,7 @@
   <?php include "interface/header/header.php" ?>
 
   <body class="bg-dark">
-    <form action="loginProcess.php" method="post">
+    <form action="_loginProcess.php" method="post">
 
       <div class="container-fluid">
         <div class="row justify-content-center">
