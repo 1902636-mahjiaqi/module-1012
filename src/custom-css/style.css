@@ -11,3 +11,7 @@
 
 /* table content */
 table td { vertical-align: middle !important; }
+
+/* modal */
+.modal-header { border-bottom: 0 none !important; padding: 2rem 1rem 0rem 1rem !important; }
+.modal-footer { border-top: 0 none !important; }
