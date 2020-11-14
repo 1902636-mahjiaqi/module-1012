@@ -48,7 +48,7 @@
     function __construct($user, $name, $userType, $module, $emailAddr, $classList) {
       $this->user = $user;
       $this->name = $name;
-      $this->userTyp = $userType;
+      $this->userType = $userType;
       $this->module = $module;
       $this->emailAddr = $emailAddr;
       array_push($this->clasList, $classList);

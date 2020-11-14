@@ -48,7 +48,7 @@
 
           <?php
             if(isset($_SESSION["errorMsg"])) {
-              echo "<h3>" . $_SESSION['errorMsg'] . "</h3>";
+              echo "<div class='alert alert-danger'>" . $_SESSION['errorMsg'] . "</div>";
             }
           ?>
         </div>
