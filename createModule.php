@@ -1,23 +1,33 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+  <?php include "interface/head/head.php" ?>
+  <?php include "interface/header/header.php" ?>
 
-?>
-<html>
-    <head>
-        <title>Create Module</title>
-        <meta charset="UTF-8">
-        <!-- BootStrap include: this will include all needed files for BootStrap 4.3.1 -->
-        <?php include "interface/head/head.php" ?>
-    </head>
-    <body>
-        <h2>Create Module</h2>
-        
+  <body class="bg-dark">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+        <div class="col-xl-8 jumbotron bg-white">
+          <!-- header -->
+          <div class="d-flex justify-content-between p-3">
+            <h5>Create Module</h5>
+          </div>
+          
+          <!-- content -->
         <table class="table table-striped">
             <tr>
-                <td><p>Module Code</p><input type="text" id="ModCode"></td>
-                <td><p>Module Name</p><input type="text" id="ModName"></td>
+                <th><p>Module Code</p><input type="text" class="form-control" id="ModCode"></th>
+                <th><p>Module Name</p><input type="text" class="form-control" id="ModName"></th>
             </tr>
         </table>
         
         <button class="btn btn-danger float-right" onclick="window.location.href='?.php'">Create</button>
-    </body>
+          </div>
+        </div>
+        </div>
+      </div>
+
+          </div>
+        </div>
+      </div>
+  </body>
 </html>
