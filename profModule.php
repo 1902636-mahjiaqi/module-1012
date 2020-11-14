@@ -31,7 +31,7 @@
         <div class="row justify-content-center">
         <div class="col-xl-8 jumbotron bg-white">
           <!-- header -->
-          <div class="d-flex justify-content-between p-3">
+          <div class="d-flex justify-content-between pt-3 pb-3">
             <h5>Create Module</h5>
           </div>
           

@@ -15,3 +15,13 @@ table td { vertical-align: middle !important; }
 /* modal */
 .modal-header { border-bottom: 0 none !important; padding: 2rem 1rem 0rem 1rem !important; }
 .modal-footer { border-top: 0 none !important; }
+
+/* font-awesome */
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../font-awesome-4.7.0/fonts/fontawesome-webfont.eot');
+  src: url('../font-awesome-4.7.0/fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('../font-awesome-4.7.0/fonts/fontawesome-webfont.woff2') format('woff2'), url('../font-awesome-4.7.0/fonts/fontawesome-webfont.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

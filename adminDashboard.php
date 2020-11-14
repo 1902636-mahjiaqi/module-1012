@@ -8,13 +8,13 @@
         <div class="row justify-content-center">
         <div class="col-xl-8 jumbotron bg-white">
           <!-- header -->
-          <div class="d-flex justify-content-between p-3">
+          <div class="d-flex justify-content-between pt-3 pb-3">
             <h5>Manage Professor Accounts</h5>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#newAccount">Create New Account</button>
           </div>
 
           <!-- search -->
-          <div class="d-flex justify-content-end p-3">
+          <div class="d-flex justify-content-end">
             <div class="w-25">
               <input class="form-control" type="text" placeholder="Search" aria-label="Search"></div>
             </div>
