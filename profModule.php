@@ -1,5 +1,5 @@
 <?php
-// Display Modules
+// Proffessors default page
 //for Session profID
 $profID = 1902676;
 
@@ -12,53 +12,49 @@ include "factory/moduleProcesses.php";
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, inital-scale=1">
         <!-- BootStrap include: this will include all needed files for BootStrap 4.3.1 -->
-        <?php include "css/BootStp.php" ?>
+        <?php include "interface/head/head.php" ?>
         <script>//script to get Data from DB using Ajax
             function CreatePopup(){
                 //add popup code for Create Module
             }
-            function DeletePopup(){
-                //add popup code for Delete Module
-            }
-            
-            function DeleteModule(id) {
-                //$.ajax({
-                //    url: "factory/moduleProcesses.php", //the page containing php script
-                //    type: "POST", //request type
-                //    data: {modID:id},
-                //    success: function (result) {
-                //        alert(result);
-                //    }
-                //});
-                alert(id);
+            function DeleteMod(id, title){
+                if (confirm("Are you sure you want to Delete: " + title + id)){
+                    //If they click "ok" it will run the codes here
+                }
+                else{
+                    //If they click Cancel it will run code here
+                }
             }
         </script>
     </head>
     <body>
         <div id="Top_Row">
-            <h1>Manage Modules</h1>
-            <button onlick='CreatePopup()'>Create Module</button>
+            <h1>Manage Modules
+            <button class="btn btn-Danger float-right" padding onclick="window.location.href='createModule.php'">Create Module</button>
+            </h1>
         </div>
-
-        <div class="container-fluid" id="GenerateModule">
+        <br>
+        <table class="table table-striped" id="DisplayModules">
             <?php
           //Codes to auto generate all modules from that prof
             if ($success) {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $row = $result->fetch_assoc();
-                    echo "<div id='Row" . $i . "'><p>" . $row['Title'] . "</p>";
-                    echo "<button href=''>Manage Class</button>
-                        <button href=''>Edit Module</button>
-                        <button onclick='DeletePopup()')>Delete Module</button>";
-                    echo "</div>";
+                    $thisTitle = $row['Title'];
+                    $thisID = $row['ModID'];
+                    echo "<tr>";
+                    echo "<div id='Row" . $i . "'><td><p>" . $row['Title'] . "</p></td>";
+                    echo "<td><button class=\"btn btn-Danger float-right\" onclick='DeleteMod(".$thisID.",\"".$thisTitle."\")'>Delete Module</button>
+                         <button class=\"btn btn-info float-right\" href=''>Edit Module</button>
+                         <button class=\"btn btn btn-warning float-right\" onclick=\"window.location.href='createModule.php'\">Manage Class</button></td>";
+                    echo "</div></tr>";
                 }
             } else {
                 //No items in table
                 echo "No modules currently owned";
             }
             ?>
-
-        </div>
+        </table>
     </body>
 
 </html>

@@ -1,19 +1,19 @@
 <?php
   
-include_once "dbconn.php";
+include_once "_dbconn.php";
 
 //conn for DB
 $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 $success = true;
 
 //check connection
-//mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);//Error checking for SQL
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);//Error checking for SQL
   if ($conn->connect_error) {
       //$message = "Connection failed: " . $conn->connect_error;
       $message = "Error connecting to database!"; //don't print out real error
       $success = false;
   } else {
-      $stmt = $conn->prepare("SELECT * FROM  sql12374841.module WHERE ProfID=". $profID);
+      $stmt = $conn->prepare("SELECT * FROM  sql1902686twr.module WHERE ProfID=". $profID);
       //execute query and check for error at same time
       if (!$stmt->execute()) {
           $message = "Database error."; //. $conn->error;
