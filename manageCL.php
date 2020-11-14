@@ -61,7 +61,7 @@
                             <td>1902XXX@sit.singaporetech.sg</td>
                             <td>Tom</td>
                             <td>70
-                                <a href="#"><i class="fa fa-pencil"></i></a>
+                                <a href="#"><i class="fa fa-pencil text-dark"></i></a>
                             </td>
                             <td>
                                 <button class="btn btn-info float-left" data-toggle="modal"
@@ -73,7 +73,7 @@
                             <td>1902XXX@sit.singaporetech.sg</td>
                             <td>mary</td>
                             <td>70
-                                <a href="#"><i class="fa fa-pencil"></i></a>
+                                <a href="#"><i class="fa fa-pencil text-dark""></i></a>
                             </td>
                             <td>
                                 <button class="btn btn-info float-left" data-toggle="modal"
@@ -85,7 +85,7 @@
                             <td>1902XXX@sit.singaporetech.sg</td>
                             <td>sam</td>
                             <td>70
-                                <a href="#"><i class="fa fa-pencil"></i></a>
+                                <a href="#"><i class="fa fa-pencil  text-dark""></i></a>
                             </td>
                             <td>
                                 <button class="btn btn-info float-left" data-toggle="modal"
@@ -112,7 +112,7 @@
                         </div>
                         <div class="modal-body">
                             <form action="/action_page.php">
-                                <textarea id="summative" name="summative" rows="7" style="width: 100%;">
+                                <textarea id="summative" class="form-control" name="summative" rows="7" style="width: 100%;">
                                 </textarea>
                             </form>
                         </div>
@@ -133,7 +133,7 @@
                         </div>
                         <div class="modal-body">
                             <form action="/action_page.php">
-                                <textarea id="summative" name="summative" rows="7" style="width: 100%;">
+                                <textarea id="summative" class="form-control" name="summative" rows="7" style="width: 100%;">
                                 </textarea>
                             </form>
                         </div>
