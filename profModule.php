@@ -8,7 +8,7 @@ include "factory/moduleProcesses.php";
 
 <html lang="en">
     <head>
-        <title> Professor Module </title>
+        <title> Professor Manage Module </title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, inital-scale=1">
         <!-- BootStrap include: this will include all needed files for BootStrap 4.3.1 -->
@@ -29,9 +29,9 @@ include "factory/moduleProcesses.php";
     </head>
     <body>
         <div id="Top_Row">
-            <h1>Manage Modules
+            <h2>Manage Modules
             <button class="btn btn-Danger float-right" padding onclick="window.location.href='createModule.php'">Create Module</button>
-            </h1>
+            </h2>
         </div>
         <br>
         <table class="table table-striped" id="DisplayModules">
