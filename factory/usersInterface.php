@@ -8,6 +8,5 @@
     public function getModule();
     public function getEmailAddr();
     
-    }
   }
 ?>

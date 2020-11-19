@@ -1,7 +1,23 @@
+<?php
+
+include "factory/usersClass.php";
+include_once "factory/usersInterface.php";
+
+session_start();
+
+if (!isset($_SESSION['sessionToken'])) {
+  unset($_SESSION["sessionToken"]);
+  $_SESSION = array();
+  session_destroy();
+  header('Location:index.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-  <?php include "interface/head/head.php" ?>
-  <?php include "interface/header/header.php" ?>
+  <?php include "interface/head/head.php"; ?>
+  <?php include "interface/header/header.php"; ?>
 
   <body class="bg-dark">
       <div class="container-fluid">

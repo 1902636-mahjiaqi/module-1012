@@ -1,8 +1,10 @@
 <?php
 
 include_once "_dbconn.php";
+include_once "factory/usersFactory.php";
 
 session_start();
+
 $errorMsg = $password = $email = "";
 $success = true;
 
@@ -63,8 +65,18 @@ if ($success == true) {
       $row = $result->fetch_assoc();
       $conn->close();
       $result->free_result();
-      $_SESSION['sessionToken'] = $row['AccID'];
-      header("location:dashboard.php");
+      $_SESSION['sessionToken'] = usersFactory::createUser($row);
+      if ($_SESSION['sessionToken']->getUserType() == 0) {
+        header('Location:adminDashboard.php');
+      }
+      
+      else if ($_SESSION['sessionToken']->getUserType() == 1) {
+        header('Location:professorDashboard.php');
+      }
+
+      else if ($_SESSION['sessionToken']->getUserType() == 2) {
+        header('Location:Dashboard.php');
+      }
     }
 
     else {

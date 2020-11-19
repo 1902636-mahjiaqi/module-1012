@@ -1,5 +1,7 @@
 <?php
 
+  include_once "usersInterface.php";
+
   class students implements usersInterface {
     private $user;
     private $name;
@@ -7,11 +9,10 @@
     private $module;
     private $emailAddr;
 
-    function __construct($user, $name, $userType, $module, $emailAddr) {
+    function __construct($user, $name, $userType, $emailAddr) {
       $this->user = $user;
       $this->name = $name;
       $this->userType = $userType;
-      $this->module = $module;
       $this->emailAddr = $emailAddr;
     }
 
@@ -45,11 +46,10 @@
     private $emailAddr;
     private $classList = array();
 
-    function __construct($user, $name, $userType, $module, $emailAddr, $classList) {
+    function __construct($user, $name, $userType, $emailAddr, $classList) {
       $this->user = $user;
       $this->name = $name;
       $this->userType = $userType;
-      $this->module = $module;
       $this->emailAddr = $emailAddr;
       array_push($this->clasList, $classList);
     }
@@ -75,7 +75,7 @@
     }
 
     public function getClassList() {
-      return this->classList;
+      return $this->classList;
     }
   }
 

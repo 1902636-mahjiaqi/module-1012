@@ -1,26 +1,32 @@
 <?php
-  session_start();
+  include "factory/usersClass.php";
+  include_once "factory/usersInterface.php";
+
+  session_start();  
+
   if (isset($_SESSION['sessionToken'])) {
-    if($_SESSION['sessionToken'] -> getTypeOfUser() == "2") {
+    $temp = $_SESSION['sessionToken'];
+    if($_SESSION['sessionToken']->getUserType() == "2") {
       header("Location:dashboard.php");
     }
-    else if ($_SESSION['sessionToken'] -> getTypeOfUser() == "1") {
+    else if ($_SESSION['sessionToken']->getUserType() == "1") {
       header("Location:profDashboard.php");
     }
-    else if ($_SESSION['sessionToken'] -> getTypeOfUser() == "0") {
+    else if ($temp->getUserType() == "0") {
       header("Location:adminDashboard.php");
     }
   }
 
-  else {
+  else if (!isset($_SESSION['sessionToken'])) {
     unset($_SESSION["sessionToken"]);
+    $_SESSION = array();
     session_destroy();
   }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-  <?php include "interface/head/head.php" ?>
-  <?php include "interface/header/header.php" ?>
+  <?php include "interface/head/head.php"; ?>
+  <?php include "interface/header/header.php"; ?>
 
   <body class="bg-dark">
     <form action="_loginProcess.php" method="post">
