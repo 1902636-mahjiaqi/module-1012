@@ -48,6 +48,20 @@
                 }
             });
         }
+
+        function ManageClass(id, title) {
+            $.ajax({
+                url: "factory/SessionIDMod.php",
+                type: "POST",
+                //pass the data
+                data: {ModID: id, ModTitle: title},
+                //success
+                success: function (data) {
+                    //updated items
+                    window.location.href = "manageCL.php";
+                }
+            });
+        }
     </script>
 
     <body class="bg-dark">
@@ -78,7 +92,7 @@
                                 echo "<div id='Row" . $i . "'><td><p>" . $row['Title'] . "</p></td>";
                                 echo "<td><button class=\"btn btn-danger float-right ml-2\" onclick='DeleteMod(" . $thisID . ",\"" . $thisTitle . "\")'>Delete Module</button>
                          <button class=\"btn btn-info float-right ml-2\" onclick='EditMod(" . $thisID . ",\"".$thisTitle."\")'>Edit Module</button>
-                         <button class=\"btn btn btn-warning float-right ml-2\" onclick=\"window.location.href='createModule.php'\">Manage Class</button></td>";
+                         <button class=\"btn btn btn-warning float-right ml-2\" onclick='ManageClass(" . $thisID . ",\"".$thisTitle."\")'>Manage Class</button></td>";
                                 echo "</div></tr>";
                             }
                         } else {

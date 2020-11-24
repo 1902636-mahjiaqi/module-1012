@@ -3,6 +3,17 @@
 <?php include "interface/head/head.php" ?>
 <?php include "interface/header/header.php" ?>
 
+<?php
+session_start();
+//for Session profID
+$profID = 1902676;
+$CompID = 21;
+$ModID = $_SESSION['ModID'];
+
+include "factory/getClassList.php";
+?>
+
+
 <body class="bg-dark">
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -13,15 +24,14 @@
                 </div>
 
                 <!-- content -->
-                <h4> ICT2101/2201 INTRODUCTION TO SOFTWARE ENGINEERING
-                    <button class="btn btn-info float-right ml-2" data-toggle="modal"
-                        data-target="#myModal-fb">Formative Feedback </button>
+                <h4> <?php echo $_SESSION["ModTitle"] ?>
+                    <button class="btn btn-info float-right ml-2" data-toggle="modal" data-target="#myModal-fb">Formative Feedback </button>
 
                     <!-- <input class="btn btn-success float-right" type="file" accept=".xlxs"> -->
                     <div class="upload_btn btn btn-success float-right">Upload Class List</div>
-                    <input id="html_btn" class="display-none" type='file'" /><br>
+                    <input id="html_btn" class="display-none" type='file' /><br>
 
-        <!-- <button class=" btn btn-success float-right" data-toggle="modal" data-target="#myModal">Upload Class
+                    <!-- <button class=" btn btn-success float-right" data-toggle="modal" data-target="#myModal">Upload Class
                     List</button> -->
                 </h4>
                 <form class="form-inline mr-auto mb-4">
@@ -38,60 +48,45 @@
                             <li><a href="#">class 4</a></li>
                         </ul>
                     </div>
-                    <input class="form-control mr-sm-2 ml-2" type="text" placeholder="Search" aria-label="Search"
-                        align="center" />
+                    <input class="form-control mr-sm-2 ml-2" type="text" placeholder="Search" aria-label="Search" align="center"/>
                     <button class="btn btn-outline-success btn-rounded" type="submit">Search</button>
                 </form>
-                <table class="table table-striped table-hover"" id=" mytable">
+                <table class="table table-striped table-hover" id=" mytable">
                     <thead>
                         <tr>
                             <th>
                                 <input type="checkbox" id="selectall" onClick="selectAll(this)" />
                                 <ul>
                             </th>
-                            <th>Email</th>
                             <th>Name</th>
+                            <th>Email</th>
                             <th>Marks</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><input type="checkbox" name="student[]" /></td>
-                            <td>1902XXX@sit.singaporetech.sg</td>
-                            <td>Tom</td>
-                            <td>70
-                                <a href="#"><i class="fa fa-pencil text-dark"></i></a>
-                            </td>
-                            <td>
-                                <button class="btn btn-info float-left" data-toggle="modal"
-                                    data-target="#myModal-sm">Summative Feedback </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" name="student[]" /></td>
-                            <td>1902XXX@sit.singaporetech.sg</td>
-                            <td>mary</td>
-                            <td>70
-                                <a href="#"><i class="fa fa-pencil text-dark""></i></a>
-                            </td>
-                            <td>
-                                <button class="btn btn-info float-left" data-toggle="modal"
-                                    data-target="#myModal-sm">Summative Feedback </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" name="student[]" /></td>
-                            <td>1902XXX@sit.singaporetech.sg</td>
-                            <td>sam</td>
-                            <td>70
-                                <a href="#"><i class="fa fa-pencil  text-dark""></i></a>
-                            </td>
-                            <td>
-                                <button class="btn btn-info float-left" data-toggle="modal"
-                                    data-target="#myModal-sm">Summative Feedback </button>
-                            </td>
-                        </tr>
+                        <?php
+                        //Generate Class List with Names, Emails, Marks
+                        if ($success) {
+                            for ($i = 0; $i < $result->num_rows; $i++) {
+                                $row = $result->fetch_assoc();
+                                $thisName = $row['Name'];
+                                $thisEmail = $row['Email'];
+                                echo "<tr>";
+                                echo "<td><input type=" . 'checkbox' . " name=" . $row['Name'] . " /></td>";
+                                echo "<td>" . $row['Name'] . "</td>";
+                                echo "<td>" . $row['Email'] . "</td>";
+                                echo "<td>" . $row['Grade'];
+                                echo '<a href="#"><i class="fa fa-pencil text-dark"></i></a>';
+                                echo "</td>";
+                                echo "<td>";
+                                echo '<button class="btn btn-info float-left" data-toggle="modal"';
+                                echo 'data-target="#myModal-sm">Summative Feedback </button>';
+                                echo "</td>";
+                            }
+                        }
+                        echo "</tr>";
+                        ?>
                     </tbody>
                 </table>
                 <br>
@@ -146,16 +141,11 @@
             <!-- end of content -->
         </div>
     </div>
-    </div>
-    </div>
 
-    </div>
-    </div>
-    </div>
     <script>
-    $('.upload_btn').on("click", function() {
-        $('#html_btn').click();
-    });
+        $('.upload_btn').on("click", function() {
+            $('#html_btn').click();
+        });
     </script>
 
 </body>
