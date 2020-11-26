@@ -82,7 +82,8 @@
                     //success
                     success: function (data) {
                         //updated items
-                        //alert(data);
+                        //Update onclick
+                        document.getElementById("Uppy" + id).setAttribute( "onClick", "UpWeight("+ id +","+ newInp +")" );
                         document.getElementById("Status" + id).innerHTML = "Updated";
                         document.getElementById("TtlWt").innerHTML = newWeight;
                     }
@@ -203,7 +204,7 @@
                                     echo "<div id='Row" . $i . "'><td><p>" . $row['Title'] . "</p></td>";
                                     echo "<td><input id='WT" . $row['CompID'] . "' type='number' min=0 max=100 value=" . $row['Weightage'] . "><p id='Status" . $row['CompID'] . "'></p></td>";
                                     echo '<td><button class="btn btn-danger float-right" onclick="DeleteComp(' . $row['CompID'] . ', ' . $row['subComponentStatus'] . ', \'' . $row['Title'] . '\')">Delete Component</button>';
-                                    echo '<button class="btn btn-info float-right ml-2" onclick="UpWeight(' . $row['CompID'] . ', ' . $row['Weightage'] . ')">Update Weightage</button>';
+                                    echo '<button id="Uppy'.$row['CompID'].'" class="btn btn-info float-right ml-2" onclick="UpWeight(' . $row['CompID'] . ', ' . $row['Weightage'] . ')">Update Weightage</button>';
                                     echo '<button class="btn btn-success float-right ml-2" onclick="CreateSub(' . $row['CompID'] . ',\''.$row['Title'].'\', '. $row['Weightage'] .')">Add SubComponenet</button></td>';
                                     echo "</tr>";
                                 }
@@ -229,7 +230,7 @@
                                             echo "<td><input id='WT" . $subRow['CompID'] . "' type='number' min=0 max=100 value=" . $subRow['Weightage'] . "><p id='Status" . $subRow['CompID'] . "'></p></td>";
                                             //buttons
                                             echo '<td><button class="btn btn-danger float-right" onclick="DeleteComp(' . $subRow['CompID'] . ', ' . $subRow['subComponentStatus'] . ', \'' . $subRow['Title'] . '\')">Delete Subcomponent</button>';
-                                            echo '<button class="btn btn-info float-right ml-2" onclick="UpWeight(' . $subRow['CompID'] . ', ' . $subRow['Weightage'] . ')">Update Weightage</button></td>';
+                                            echo '<button id="Uppy'.$row['CompID'].'" class="btn btn-info float-right ml-2" onclick="UpWeight(' . $subRow['CompID'] . ', ' . $subRow['Weightage'] . ')">Update Weightage</button></td>';
                                             echo "</div></tr>";
                                         }
                                     }
