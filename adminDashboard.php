@@ -24,17 +24,16 @@ if (isset($_SESSSION['status']) && $_SESSION['status'] - time() < 1800) {
   <?php include "interface/head/head.php"; ?>
   <?php include "interface/header/header.php"; ?>
   <script>
-    $(document).ready(function(){
-      $("button").click(function(){
-        $.ajax({
+   function ajax(accID){
+     $.ajax({
           type: 'POST',
           url: '_deleteAccount.php',
-          success: function(html){
-            alert("Nice");
+          data: {ID: accID},
+          success: function(){
+              window.location.replace("adminDashboard.php");
           }
         })
-      })
-    })
+   }
   </script>
   <body class="bg-dark">
       <div class="container-fluid">
@@ -73,7 +72,9 @@ if (isset($_SESSSION['status']) && $_SESSION['status'] - time() < 1800) {
                   echo "<td scope='row'>" . $row['AccID'] . "</td>";
                   echo "<td>" . $row['Name'] . "</td>";
                   echo "<td>";
-                  echo "<button type'button'id='button' class='btn btn-danger' onclick='" . $row['AccID' . "'> Delete </button>";
+                  echo "<form method='post' action='_deleteAccount.php>";
+                  echo "<button type'button'id='button' class='btn btn-danger' onclick='ajax(" . $row['AccID'] . ")'> Delete </button>";
+                  echo "</form>";
                   echo "</tr>";
                 }
               }

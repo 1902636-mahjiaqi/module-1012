@@ -1,5 +1,5 @@
-<?php session_start(); ?>
-
+<!-- <?php session_start(); ?>
+ -->
 <!-- insert here is isset session login show nav bar content, else hide nav bar content -->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">

@@ -1,19 +1,26 @@
 <?php
 
 include_once "_dbconn.php";
-
-session_start();
 $errorMsg = "";
-$email = $_POST['email'];
+$accID = $_POST['ID'];
+echo $email;
+$sql = "DELETE FROM accounts WHERE AccID = $accID";
+$conn->query($sql);
+echo "success";
+
 if ($conn->connect_error) {
     $errorMsg = "Connection failed " . $conn->connect_errpr;
     $_SESSION['errorMsg'] = $errorMsg;
     header("Location:adminDashboard.php");
+   	echo "<script> alert('test') </script>";
+
 }
 
 else {
-    $sql = "DELETE FROM accounts WHERE Email = $email";
+    $sql = "DELETE FROM accounts WHERE AccID = $accID";
     if ($conn->query($sql)) {
         header("Location:adminDashboard.php");
     }
 }
+
+?>
