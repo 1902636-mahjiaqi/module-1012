@@ -75,7 +75,7 @@ if ($success == true) {
       }
 
       else if ($_SESSION['sessionToken']->getUserType() == 2) {
-        header('Location:Dashboard.php');
+        header('Location:studDashboard.php');
       }
     }
 
