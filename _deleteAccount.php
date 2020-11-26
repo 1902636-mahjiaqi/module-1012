@@ -3,10 +3,8 @@
 include_once "_dbconn.php";
 $errorMsg = "";
 $accID = $_POST['ID'];
-echo $email;
 $sql = "DELETE FROM accounts WHERE AccID = $accID";
 $conn->query($sql);
-echo "success";
 
 if ($conn->connect_error) {
     $errorMsg = "Connection failed " . $conn->connect_errpr;
