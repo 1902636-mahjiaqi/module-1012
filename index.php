@@ -4,21 +4,24 @@
 
   session_start();  
 
-  if (isset($_SESSION['sessionToken'])) {
-    $temp = $_SESSION['sessionToken'];
-    if($_SESSION['sessionToken']->getUserType() == "2") {
-      header("Location:dashboard.php");
+  if (isset($_SESSION['sessionToken']) && isset($_SESSION['status'])) {
+    if ($_SESSION['status'] - time() < 1800) {
+      $_SESSION['status'] = time();
+      if($_SESSION['sessionToken']->getUserType() == "2") {
+        header("Location:dashboard.php");
+      }
+      else if ($_SESSION['sessionToken']->getUserType() == "1") {
+        header("Location:profDashboard.php");
+      }
+      else if ($_SESSION['sessionToken']->getUserType() == "0") {
+        header("Location:adminDashboard.php");
+      }
     }
-    else if ($_SESSION['sessionToken']->getUserType() == "1") {
-      header("Location:profDashboard.php");
-    }
-    else if ($temp->getUserType() == "0") {
-      header("Location:adminDashboard.php");
-    }
+    
   }
 
   else if (!isset($_SESSION['sessionToken'])) {
-    unset($_SESSION["sessionToken"]);
+    session_unset();
     $_SESSION = array();
     session_destroy();
   }

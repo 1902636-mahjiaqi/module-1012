@@ -2,6 +2,7 @@
 
 include "factory/usersClass.php";
 include_once "factory/usersInterface.php";
+include_once "_dbconn.php";
 
 session_start();
 
@@ -12,13 +13,29 @@ if (!isset($_SESSION['sessionToken'])) {
   header('Location:index.php');
 }
 
+if (isset($_SESSSION['status']) && $_SESSION['status'] - time() < 1800) {
+  $_SESSION['status'] = time();
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <?php include "interface/head/head.php"; ?>
   <?php include "interface/header/header.php"; ?>
-
+  <script>
+    $(document).ready(function(){
+      $("button").click(function(){
+        $.ajax({
+          type: 'POST',
+          url: '_deleteAccount.php',
+          success: function(html){
+            alert("Nice");
+          }
+        })
+      })
+    })
+  </script>
   <body class="bg-dark">
       <div class="container-fluid">
         <div class="row justify-content-center">
@@ -44,14 +61,31 @@ if (!isset($_SESSION['sessionToken'])) {
                 <th scope="col"></th>
               </tr>
             </thead>
+          
             <tbody>
-              <tr>
+              <?php
+              $sql = "SELECT * FROM accounts where AccType != 0";
+              $result = $conn->query($sql);
+
+              if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                  echo "<tr>";
+                  echo "<td scope='row'>" . $row['AccID'] . "</td>";
+                  echo "<td>" . $row['Name'] . "</td>";
+                  echo "<td>";
+                  echo "<button type'button'id='button' class='btn btn-danger' onclick='" . $row['AccID' . "'> Delete </button>";
+                  echo "</tr>";
+                }
+              }
+              ?>
+
+<!--               <tr>
                 <td scope="row">1902183@sit.singaporetech.sg</td>
                 <td>Foo Qi Kai</td>
                 <td>
                   <button type="button" class="btn btn-danger">Delete</button>
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
           </div>

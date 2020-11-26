@@ -66,6 +66,7 @@ if ($success == true) {
       $conn->close();
       $result->free_result();
       $_SESSION['sessionToken'] = usersFactory::createUser($row);
+      $_SESSION['status'] = time();
       if ($_SESSION['sessionToken']->getUserType() == 0) {
         header('Location:adminDashboard.php');
       }
@@ -75,7 +76,7 @@ if ($success == true) {
       }
 
       else if ($_SESSION['sessionToken']->getUserType() == 2) {
-        header('Location:studDashboard.php');
+        header('Location:Dashboard.php');
       }
     }
 
