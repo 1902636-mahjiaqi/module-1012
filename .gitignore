@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+nbproject/project.xml
+nbproject/private/private.properties
+nbproject/project.properties
