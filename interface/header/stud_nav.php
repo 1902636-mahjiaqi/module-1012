@@ -1,6 +1,6 @@
 <?php ?>
 <div class="row justify-content-center">
-    <div class="col-xl-8">
+    <div class="col">
         <!-- student nav bar -->
         <div class="d-flex justify-content-end">
             <a href="studDashboard.php" class="btn btn-light" role="button" aria-pressed="true">Sky City</a>
