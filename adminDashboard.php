@@ -26,7 +26,7 @@ else {
   }
 }
 
-if (isset($_SESSSION['status']) {
+if (isset($_SESSSION['status'])) {
   if ($_SESSION['status'] - time() < 1800) {
     $_SESSION['status'] = time();
   }
