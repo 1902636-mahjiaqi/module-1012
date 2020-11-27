@@ -21,9 +21,6 @@ else {
   else if ($_SESSION['sessionToken']->getUserType() == "1") {
     header("Location:profDashboard.php");
   }
-  else if ($_SESSION['sessionToken']->getUserType() == "0") {
-    header("Location:adminDashboard.php");
-  }
 }
 
 if (isset($_SESSSION['status'])) {
