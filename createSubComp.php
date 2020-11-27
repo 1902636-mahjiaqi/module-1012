@@ -1,10 +1,20 @@
 <?php
-//profID
+include "factory/usersClass.php";
+include_once "factory/usersInterface.php"; 
+
+//ProfID
 session_start();
-$ProfID = 1902676;
+$ProfID = $_SESSION['sessionToken']->getUser();
+
 $ModID = $_SESSION["ModID"];
 $MainCompID = $_SESSION['CompID'];
-$IgnoreWeight = $_SESSION['IgnoreWeightage'];
+if (isset($IgnoreWeight)){
+    $IgnoreWeight = $_SESSION['IgnoreWeightage'];
+}
+else {
+    $IgnoreWeight = 0;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,11 +25,12 @@ $IgnoreWeight = $_SESSION['IgnoreWeightage'];
             function CreateSubComp() {
                 var CompName = document.getElementById("SubCompNa").value;
                 var CompWeight = document.getElementById("SubCompWei").value;
+                //post to get total Weightage
                 $.ajax({
                     url: "factory/getTotalWeight.php",
                     type: "POST",
                     //pass the data
-                    data: {ModID: <?php echo $ModID ?>},
+                    data: {ModID: <?php echo $ModID ?>, CompID: <?php echo $MainCompID ?>},
                     //success
                     success: function (data) {
                         TotalW = (parseInt(data) + parseInt(CompWeight)) - <?php echo $IgnoreWeight ?>;

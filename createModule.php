@@ -1,6 +1,8 @@
 <?php
-//profID
-$ProfID = 1902676;
+include "factory/usersClass.php";
+include_once "factory/usersInterface.php"; 
+session_start();
+$ProfID = $_SESSION['sessionToken']->getUser();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +23,7 @@ $ProfID = 1902676;
                     //success
                     success: function (data) {
                         alert(data);
-                        window.location.href = "profModule.php";
+                        window.location.href = "professorDashboard.php";
                     }
                 });
 

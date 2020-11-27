@@ -13,6 +13,9 @@
       if ($row['AccType'] == 0) {
         $userObject = new students($user, $name, $userType, $emailAddr);
       }
+      else if ($row['AccType'] == 1) {
+        $userObject = new students($user, $name, $userType, $emailAddr);
+      }
 
       else if ($row['AccType'] == 1) {
         $userObject = new professors($user, $name, $userType, $emailAddr);

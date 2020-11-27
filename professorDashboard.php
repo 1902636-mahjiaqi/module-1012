@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php 
+include "factory/usersClass.php";
+include_once "factory/usersInterface.php"; 
+?>
 <html lang="en">
     <?php include "interface/head/head.php" ?>
     <?php include "interface/header/header.php" ?>
@@ -6,7 +10,10 @@
     <?php
     // Professor default page
     //for Session profID
-    $profID = 1902676;
+    session_start();
+    
+    $profID = $_SESSION['sessionToken']->getUser();
+    //$profID = 1902676;
 
     include "factory/moduleProcesses.php";
     ?>
