@@ -4,6 +4,7 @@ include "factory/usersClass.php";
 include_once "factory/usersInterface.php";
 include_once "_dbconn.php";
 
+
 session_start();
 
 if (!isset($_SESSION['sessionToken'])) {
@@ -16,6 +17,7 @@ if (!isset($_SESSION['sessionToken'])) {
 if (isset($_SESSSION['status']) && $_SESSION['status'] - time() < 1800) {
   $_SESSION['status'] = time();
 }
+
 
 ?>
 
@@ -35,6 +37,15 @@ if (isset($_SESSSION['status']) && $_SESSION['status'] - time() < 1800) {
         })
    }
   </script>
+  <?php 
+    if (isset($_SESSION['errorMsg'])) {
+      echo "<script> $(document).ready(function(){
+        $('#newAccount').modal('show');
+        });
+ 
+</script>";
+    }
+  ?>
   <body class="bg-dark">
       <div class="container-fluid">
         <div class="row justify-content-center">
@@ -105,17 +116,22 @@ if (isset($_SESSSION['status']) && $_SESSION['status'] - time() < 1800) {
               </button>
             </div>
             
-            <div class="modal-body">
+            <div class="modal-body open">
               <!-- insert form here -->
-              <form action="#" method="post">
+              <form action="_createAccount.php" method="POST">
+                  <div class="form-group">
+                    <label for="name"><b>Account ID</b></label>
+                    <input type="text" class="form-control" placeholder="Enter Account ID" name="accountID" required>
+                  </div>
+
                   <div class="form-group">
                     <label for="name"><b>Name</b></label>
-                    <input type="email" class="form-control" placeholder="Enter email address" name="name" required>
+                    <input type="text" class="form-control" placeholder="Enter name" name="name" required>
                   </div>
 
                   <div class="form-group">
                     <label for="email"><b>Email Address</b></label>
-                    <input type="password" class="form-control" placeholder="Enter Password" name="email" required>
+                    <input type="email" class="form-control" placeholder="Enter email" name="email" required>
                   </div>
 
                   <div class="form-group">
@@ -127,10 +143,21 @@ if (isset($_SESSSION['status']) && $_SESSION['status'] - time() < 1800) {
                     <label for="cfmPassword"><b>Confirm Password</b></label>
                     <input type="password" class="form-control" placeholder="Enter Password" name="cfmPassword" required>
                   </div>
-            </form>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger">Save changes</button>
-            </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-danger">Create Account</button>
+                </div>
+
+                <?php
+                  if (isset($_SESSION["errorMsg"])) {
+                    echo "<script> alert(" . $_SESSION['errorMsg'] . ") </script>";
+                    echo "<div class='alert alert-danger'>" . $_SESSION['errorMsg'] . "</div>";
+                  }
+
+                  unset($_SESSION['errorMsg']);
+
+                ?>
+              </form>
+            
             </div>
             <!-- end of modal -->
 
