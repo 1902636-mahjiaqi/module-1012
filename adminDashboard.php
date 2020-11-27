@@ -8,14 +8,34 @@ include_once "_dbconn.php";
 session_start();
 
 if (!isset($_SESSION['sessionToken'])) {
-  unset($_SESSION["sessionToken"]);
+  unset_session();
   $_SESSION = array();
   session_destroy();
   header('Location:index.php');
 }
 
-if (isset($_SESSSION['status']) && $_SESSION['status'] - time() < 1800) {
-  $_SESSION['status'] = time();
+else {
+  if($_SESSION['sessionToken']->getUserType() == "2") {
+    header("Location:dashboard.php");
+  }
+  else if ($_SESSION['sessionToken']->getUserType() == "1") {
+    header("Location:profDashboard.php");
+  }
+  else if ($_SESSION['sessionToken']->getUserType() == "0") {
+    header("Location:adminDashboard.php");
+  }
+}
+
+if (isset($_SESSSION['status']) {
+  if ($_SESSION['status'] - time() < 1800) {
+    $_SESSION['status'] = time();
+  }
+  else {
+    unset_session();
+    $_SESSION = array();
+    session_destroy();
+    header('Location:index.php');
+  }
 }
 
 

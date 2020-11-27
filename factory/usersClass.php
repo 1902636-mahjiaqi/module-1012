@@ -46,12 +46,12 @@
     private $emailAddr;
     private $classList = array();
 
-    function __construct($user, $name, $userType, $emailAddr, $classList) {
+    function __construct($user, $name, $userType, $emailAddr) {
       $this->user = $user;
       $this->name = $name;
       $this->userType = $userType;
       $this->emailAddr = $emailAddr;
-      array_push($this->clasList, $classList);
+      //array_push($this->clasList, $classList);
     }
 
     public function getUser() {
