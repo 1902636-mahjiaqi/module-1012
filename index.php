@@ -8,7 +8,7 @@
     if ($_SESSION['status'] - time() < 1800) {
       $_SESSION['status'] = time();
       if($_SESSION['sessionToken']->getUserType() == "2") {
-        header("Location:dashboard.php");
+        header("Location:studDashboard.php");
       }
       else if ($_SESSION['sessionToken']->getUserType() == "1") {
         header("Location:profDashboard.php");

@@ -1,8 +1,42 @@
+ <?php
+    include_once "factory/usersClass.php";
+    include_once "factory/usersInterface.php";
+    include_once "_dbconn.php";
+
+    session_start();
+
+    if (!isset($_SESSION['sessionToken'])) {
+      session_unset();
+      $_SESSION = array();
+      session_destroy();
+      header('Location:index.php');
+    }
+
+    else {
+      if($_SESSION['sessionToken']->getUserType() == "1") {
+        header("Location:profDashboard.php");
+      }
+      else if ($_SESSION['sessionToken']->getUserType() == "0") {
+        header("Location:adminDashboard.php");
+      }
+    }
+
+    if (isset($_SESSSION['status'])) {
+      if ($_SESSION['status'] - time() < 1800) {
+        $_SESSION['status'] = time();
+      }
+      else {
+        unset_session();
+        $_SESSION = array();
+        session_destroy();
+        header('Location:index.php');
+      }
+    }
+  ?>
 <!DOCTYPE html>
 <html lang="en">
   <?php include "interface/head/head.php" ?>
   <?php include "interface/header/header.php" ?>
-
 
   <body class="bg-dark">
       <div class="container-fluid">
@@ -43,13 +77,13 @@
                 tool = [0,0]
 
                 map = [
-                  [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],
-                  [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],
-                  [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],
-                  [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],
-                  [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],
-                  [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],
-                  [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]
+                  [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6]],
+                  [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6]],
+                  [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6]],
+                  [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6]],
+                  [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6]],
+                  [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]],
+                  [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6]]
                 ]
 
                 canvas = $("#bg")
@@ -73,7 +107,7 @@
                 // coin value here
                 var c = document.getElementById("score");
                 ctx = c.getContext("2d");
-                coin = 100;
+                coin = 1000;
                 
                 ctx.font = "30px arial";
                 ctx.fillText("Current Coin: " + coin, 10, 50); // insert coin here
@@ -153,14 +187,15 @@
               }
 
               const click = e => {
-                coin = coin - 10; // this will minus 2
+                coin = coin - 5; // this will minus 2
                 console.log(coin);
 
-                if (coin >= 0 && coin <= 100) {
+                if (coin >= 0 && coin <= 1000) {
                 
                 const pos = getPosition(e)
                 if (pos.x >= 0 && pos.x < ntiles && pos.y >= 0 && pos.y < ntiles) {
-                  
+                  console.log(pos.x)
+                  console.log(pos.y)
                   map[pos.x][pos.y][0] = (e.which === 3) ? 0 : tool[0]
                   map[pos.x][pos.y][1] = (e.which === 3) ? 0 : tool[1]
                   isPlacing = true

@@ -8,7 +8,7 @@ include_once "_dbconn.php";
 session_start();
 
 if (!isset($_SESSION['sessionToken'])) {
-  unset_session();
+  session_unset();
   $_SESSION = array();
   session_destroy();
   header('Location:index.php');
@@ -16,7 +16,7 @@ if (!isset($_SESSION['sessionToken'])) {
 
 else {
   if($_SESSION['sessionToken']->getUserType() == "2") {
-    header("Location:dashboard.php");
+    header("Location:studDashboard.php");
   }
   else if ($_SESSION['sessionToken']->getUserType() == "1") {
     header("Location:profDashboard.php");
