@@ -18,7 +18,8 @@ if ($conn->connect_error) {
     $stmt = $conn->prepare("SELECT * FROM class 
       INNER JOIN accounts 
       ON class.StudID = accounts.AccID");
-  } else {
+  } 
+  else {
     $stmt = $conn->prepare("SELECT * FROM class 
       INNER JOIN accounts 
       ON class.StudID = accounts.AccID
@@ -30,7 +31,7 @@ if ($conn->connect_error) {
       WHERE grades.CompID =" . $CompID);
   }
 
-  $stmt2 = $conn->prepare("SELECT * FROM components WHERE ModID =". $ModID . " AND MainCompID IS NOT NULL");
+  $stmt2 = $conn->prepare("SELECT * FROM components WHERE ModID =". $ModID . " AND subComponentStatus = 2");
 
   //execute query and check for error at same time
   if (!$stmt->execute()) {
@@ -38,8 +39,7 @@ if ($conn->connect_error) {
     $success = false;
   }
   $result = $stmt->get_result();
-  $stmt2->execute();
-  $subResult = $stmt2->get_result();
+
 
   if (!($result->num_rows > 0)) {
     $errorMsg = "Table is empty.";
@@ -47,5 +47,8 @@ if ($conn->connect_error) {
   }
   $stmt->close(); //close right after executing
 
+  $stmt2->execute();
+  $subResult = $stmt2->get_result();
+  
 }
 $conn->close();
