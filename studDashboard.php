@@ -4,7 +4,7 @@
     include_once "_dbconn.php";
 
     session_start();
-
+    echo "<script> alert(" .$_SESSION['sessionToken']->getData(). ")</script>";
     if (!isset($_SESSION['sessionToken'])) {
       session_unset();
       $_SESSION = array();
@@ -32,12 +32,33 @@
         header('Location:index.php');
       }
     }
+
+    $user = $_SESSION['sessionToken']->getUser();
+
+    $sql = "SELECT coins FROM game WHERE AccID = $user";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    $coins = $row['coins'];
+
   ?>
 <!DOCTYPE html>
 <html lang="en">
-  <?php include "interface/head/head.php" ?>
-  <?php include "interface/header/header.php" ?>
+  <?php include "interface/head/head.php"; ?>
+  <?php include "interface/header/header.php"; ?>
+  <script>
+    function updateData(coins, buildings) {
+      $.ajax({
+        type: 'POST',
+        url: '_updateData.php',
+        data: {coinsFromAjax: coins, buildingsData: buildings, ID: <?php echo $user ?>},
+        success: function(result){
+          alert(result);
+        }
+      })
+    }
 
+
+  </script>
   <body class="bg-dark">
       <div class="container-fluid">
         <!-- student nav bar here -->
@@ -61,7 +82,7 @@
               </div>
             </section>
             <script>
-              const $ = _ => document.querySelector(_)
+              const $a = _ => document.querySelector(_)
               const $c = _ => document.createElement(_)
 
               let canvas, bg, fg, cf, ntiles, tileWidth, tileHeight, map, tools, tool, activeTool, isPlacing, score, text, ctx
@@ -86,7 +107,7 @@
                   [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6]]
                 ]
 
-                canvas = $("#bg")
+                canvas = $a("#bg")
                 canvas.width = 910
                 canvas.height = 666
                 w = 910
@@ -107,7 +128,7 @@
                 // coin value here
                 var c = document.getElementById("score");
                 ctx = c.getContext("2d");
-                coin = 1000;
+                coin = <?php echo $coins ?>;
                 
                 ctx.font = "30px arial";
                 ctx.fillText("Current Coin: " + coin, 10, 50); // insert coin here
@@ -115,7 +136,7 @@
 
                 drawMap()
 
-                fg = $('#fg')
+                fg = $a('#fg')
                 fg.width = canvas.width
                 fg.height = canvas.height
                 cf = fg.getContext('2d')
@@ -123,12 +144,12 @@
                 fg.addEventListener('mousemove', viz)
                 fg.addEventListener('contextmenu', e => e.preventDefault())
                 fg.addEventListener('mouseup', unclick)
-                fg.addEventListener('mousedown', click)
+                //fg.addEventListener('mousedown', click)
                 fg.addEventListener('touchend', click)
                 fg.addEventListener('pointerup', click)
 
 
-                tools = $('#tools')
+                tools = $a('#tools')
 
                 let toolCount = 0
                 for(let i = 0; i < texHeight; i++){
@@ -141,9 +162,9 @@
                     div.addEventListener('click', e => {
                       tool = [i,j]
                       if (activeTool)
-                        $(`#${activeTool}`).classList.remove('selected')	
+                        $a(`#${activeTool}`).classList.remove('selected')	
                       activeTool = e.target.id
-                      $(`#${activeTool}`).classList.add('selected')
+                      $a(`#${activeTool}`).classList.add('selected')
                     })
                     tools.appendChild( div )
                   }
@@ -171,6 +192,8 @@
                 }
                 const state = ToBase64(u8)
                 history.replaceState(undefined, undefined, `#${state}`)
+                updateData(coin, `#${state}`)
+                //console.log(`#${state}`)
               }
 
               const loadHashState = state => {
@@ -187,29 +210,27 @@
               }
 
               const click = e => {
-                coin = coin - 5; // this will minus 2
-                console.log(coin);
+                coin = coin - 20; // this will minus 2
 
-                if (coin >= 0 && coin <= 1000) {
+                if (coin >= 0 && coin <= coin) {
                 
-                const pos = getPosition(e)
-                if (pos.x >= 0 && pos.x < ntiles && pos.y >= 0 && pos.y < ntiles) {
-                  console.log(pos.x)
-                  console.log(pos.y)
-                  map[pos.x][pos.y][0] = (e.which === 3) ? 0 : tool[0]
-                  map[pos.x][pos.y][1] = (e.which === 3) ? 0 : tool[1]
-                  isPlacing = true
+                  const pos = getPosition(e)
+                  if (pos.x >= 0 && pos.x < ntiles && pos.y >= 0 && pos.y < ntiles) {
+                    map[pos.x][pos.y][0] = (e.which === 3) ? 0 : tool[0]
+                    map[pos.x][pos.y][1] = (e.which === 3) ? 0 : tool[1]
+                    isPlacing = true
 
-                  ctx.fillStyle = '#fff';
-                  ctx.fillRect(0, 0, canvas.width, canvas.height);
-                  ctx.fillStyle = '#000';
-                  ctx.fillText("Current Coin: " + coin, 10, 50); // insert coin here
-                  
-                  drawMap()
-                  cf.clearRect(-w, -h, w * 2, h * 2)
-                }
+                    ctx.fillStyle = '#fff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#000';
+                    ctx.fillText("Current Coin: " + coin, 10, 50); // insert coin here
+                    
+                    drawMap()
+                    cf.clearRect(-w, -h, w * 2, h * 2)
+                  }
+
                 updateHashState();
-              }
+                }
               }
 
               const unclick = () => {
@@ -272,4 +293,5 @@
         </div>
       </div>
   </body>
+   
 </html>

@@ -34,7 +34,11 @@ if (isset($_SESSSION['status'])) {
     header('Location:index.php');
   }
 }
-
+if (isset($_SESSION['errorMsg'])) {
+  echo "<script> $(document).ready(function(){
+    $('#newAccount').modal('show');
+    }); </script>";
+}
 
 ?>
 
@@ -54,15 +58,7 @@ if (isset($_SESSSION['status'])) {
         })
    }
   </script>
-  <?php 
-    if (isset($_SESSION['errorMsg'])) {
-      echo "<script> $(document).ready(function(){
-        $('#newAccount').modal('show');
-        });
- 
-</script>";
-    }
-  ?>
+
   <body class="bg-dark">
       <div class="container-fluid">
         <div class="row justify-content-center">
