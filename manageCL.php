@@ -181,15 +181,15 @@ include "factory/getClassList.php";
 
         function SaveFormative(feedback, m_id, c_id) {
             $.ajax({
-                url: "../factory/saveFormativeFeedback.php",
+                url: "factory/saveFormativeFeedback.php",
                 type: "POST",
                 data: {
                     comments: feedback,
-                    ModID: intval(m_id),
-                    CompID: intval(c_id)
+                    ModID: m_id,
+                    CompID: c_id
                 },
-                success: function(data) {
-                    alert("Success");
+                success: function(result) {
+                    alert(result);
                     //updated items
                     location.reload();
                 },
@@ -211,7 +211,8 @@ include "factory/getClassList.php";
                     ModID: m_id,
                     CompID: c_id
                 },
-                success: function(data) {
+                success: function(result) {
+                    alert(result);
                     //updated items
                     location.reload();
                 }
