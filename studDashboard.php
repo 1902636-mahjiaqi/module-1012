@@ -4,7 +4,6 @@
     include_once "_dbconn.php";
 
     session_start();
-    echo "<script> alert(" .$_SESSION['sessionToken']->getData(). ")</script>";
     if (!isset($_SESSION['sessionToken'])) {
       session_unset();
       $_SESSION = array();
@@ -210,25 +209,27 @@
               }
 
               const click = e => {
-                coin = coin - 20; // this will minus 2
+                if (confirm("Purchase Buildings?")) {
+                  coin = coin - 20; // this will minus 2
 
-                if (coin >= 0 && coin <= coin) {
-                
-                  const pos = getPosition(e)
-                  if (pos.x >= 0 && pos.x < ntiles && pos.y >= 0 && pos.y < ntiles) {
-                    map[pos.x][pos.y][0] = (e.which === 3) ? 0 : tool[0]
-                    map[pos.x][pos.y][1] = (e.which === 3) ? 0 : tool[1]
-                    isPlacing = true
+                  if (coin >= 0 && coin <= coin) {
+                  
+                    const pos = getPosition(e)
+                    if (pos.x >= 0 && pos.x < ntiles && pos.y >= 0 && pos.y < ntiles) {
 
-                    ctx.fillStyle = '#fff';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.fillStyle = '#000';
-                    ctx.fillText("Current Coin: " + coin, 10, 50); // insert coin here
-                    
-                    drawMap()
-                    cf.clearRect(-w, -h, w * 2, h * 2)
+                      map[pos.x][pos.y][0] = (e.which === 3) ? 0 : tool[0]
+                      map[pos.x][pos.y][1] = (e.which === 3) ? 0 : tool[1]
+                      isPlacing = true
+
+                      ctx.fillStyle = '#fff';
+                      ctx.fillRect(0, 0, canvas.width, canvas.height);
+                      ctx.fillStyle = '#000';
+                      ctx.fillText("Current Coin: " + coin, 10, 50); // insert coin here
+                      
+                      drawMap()
+                      cf.clearRect(-w, -h, w * 2, h * 2)
+                    }
                   }
-
                 updateHashState();
                 }
               }
