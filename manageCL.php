@@ -89,6 +89,7 @@ include "factory/getClassList.php";
                             <th>Name</th>
                             <th>Email</th>
                             <th>Marks</th>
+                            <th>Feedback Published</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,6 +101,17 @@ include "factory/getClassList.php";
                                 $thisName = $row['Name'];
                                 $thisEmail = $row['Email'];
                                 $thisStudID = $row['StudID'];
+                                include_once "_dbconn.php";
+
+                                $sql = "SELECT * FROM feedback where StudID = $thisStudID AND ModID = $ModID AND CompID = $CompID";
+                                $result1 = $conn->query($sql);
+
+                                if ($result1->num_rows == 1) {
+                                    $row1 = $result1->fetch_assoc();
+                                    $thisComment = $row1['Comments'];
+                                    $thisPublished = $row1['Publish'];
+                                }
+
                                 echo "<tr>";
                                 echo "<td><input class='chkbox' type=" . 'checkbox' . " name='studentID' value=" . $row['AccID'] . " /></td>";
                                 echo "<td>" . $row['Name'] . "</td>";
@@ -111,11 +123,20 @@ include "factory/getClassList.php";
                                     echo "<div class='edit'>" . $row['Grade'] . ' ';
                                     echo '<a href="#"><i class="fa fa-pencil text-dark" ></i></a>';
                                     echo "</div></td>";
-                                    echo "<td>";
+                                    echo "<td style='text-align:center'>";
+                                    if ($thisPublished == 1) {
+                                        echo "<input type='checkbox'  id='" .$thisStudID. "published' checked>";
+                                    }
+                                    else {
+                                        echo "<input type='checkbox' id='" .$thisStudID. "published'>";
+                                    }
+
+                                    echo "<script> document.getElementById('" .$thisStudID. "published').disabled = true </script>";
+                                    echo "</td> <td>";
                                     echo '<button class="btn btn-info float-left" data-toggle="modal"';
-                                    echo 'data-target="#myModal-sm">Summative Feedback </button>';
+                                    echo 'data-target="#myModal-sm' .$thisStudID. '">Summative Feedback </button>';
                                     echo "<div>";
-                                    echo "<div class='modal fade' id='myModal-sm' role='dialog'>";
+                                    echo "<div class='modal fade' id='myModal-sm" .$thisStudID. "' role='dialog'>";
                                     echo "<div class='modal-dialog'>";
                                     echo "<div class='modal-content'>";
                                     echo "<div class='modal-header'>";
@@ -134,6 +155,7 @@ include "factory/getClassList.php";
                                 }
 
                                 echo "</td>";
+                                echo "<script> document.getElementById('" .$thisStudID. "summative').value = '" .$thisComment. "' </script>";
                             }
                         }
                         echo "</tr>";

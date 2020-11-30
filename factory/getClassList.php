@@ -51,4 +51,3 @@ if ($conn->connect_error) {
   $subResult = $stmt2->get_result();
   
 }
-$conn->close();
