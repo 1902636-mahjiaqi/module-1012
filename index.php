@@ -11,7 +11,7 @@
         header("Location:studDashboard.php");
       }
       else if ($_SESSION['sessionToken']->getUserType() == "1") {
-        header("Location:profDashboard.php");
+        header("Location:professorDashboard.php");
       }
       else if ($_SESSION['sessionToken']->getUserType() == "0") {
         header("Location:adminDashboard.php");

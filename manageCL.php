@@ -101,7 +101,7 @@ include "factory/getClassList.php";
                                 $thisEmail = $row['Email'];
                                 $thisStudID = $row['StudID'];
                                 echo "<tr>";
-                                echo "<td><input type=" . 'checkbox' . " name=" . $row['Name'] . " /></td>";
+                                echo "<td><input class='chkbox' type=" . 'checkbox' . " name='studentID' value=" . $row['AccID'] . " /></td>";
                                 echo "<td>" . $row['Name'] . "</td>";
                                 echo "<td>" . $row['Email'] . "</td>";
                                 echo "<td>";
@@ -114,6 +114,23 @@ include "factory/getClassList.php";
                                     echo "<td>";
                                     echo '<button class="btn btn-info float-left" data-toggle="modal"';
                                     echo 'data-target="#myModal-sm">Summative Feedback </button>';
+                                    echo "<div>";
+                                    echo "<div class='modal fade' id='myModal-sm' role='dialog'>";
+                                    echo "<div class='modal-dialog'>";
+                                    echo "<div class='modal-content'>";
+                                    echo "<div class='modal-header'>";
+                                    echo "<h4 class='modal-title'> Summative Feedback </h4>";
+                                    echo "<button type='button' class='close' data-dismiss='modal'> &times; </button>";
+                                    echo "</div>";
+                                    echo "<div class='modal-body'>";
+                                    echo "<form method='post'>";
+                                    echo "<textarea id='" .$thisStudID. "summative' class='form-control' name='summative' rows='7' style='width:100%'>";
+                                    echo "</textarea>";
+                                    echo "</form>";
+                                    echo "</div>";
+                                    echo "<div class='modal-footer'>";
+                                    echo "<button class='btn btn-success float-right' onclick='SaveSummative(" . $thisStudID . ", " . $ModID . ", " . $CompID . ")'> Submit </button> ";
+                                    echo "</div> </div> </div> </div>";
                                 }
 
                                 echo "</td>";
@@ -127,9 +144,10 @@ include "factory/getClassList.php";
                 <?php
                 echo "<button class='btn btn-danger float-right ml-2'>Delete Selected Student Account</button>";
                 echo "<button class='btn btn-success float-right ml-2' data-toggle='modal' data-target='#myModal' onclick='PublishGrades($CompID)'>Publish Grades to All students</button>";
-                echo "<button class='btn btn-info float-right' data-toggle='modal' data-target='#myModal'>Publish Feedback to Selected Students</button>";
+                echo "<button class='btn btn-info float-right' data-toggle='modal' data-target='#myModal' onclick='PublishFeedback($CompID)'>Publish Feedback to Selected Students</button>";
                 ?>
             </div>
+
             <!-- Formative Feedback Form -->
             <div class="modal fade" id="myModal-fb" role="dialog">
                 <div class="modal-dialog">
@@ -152,27 +170,7 @@ include "factory/getClassList.php";
                     </div>
                 </div>
             </div>
-            <!-- Summative Feedback Form -->
-            <div class="modal fade" id="myModal-sm" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Summative Feedback</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="?" method="post">
-                                <textarea id="summative" class="form-control" name="summative" rows="7" style="width: 100%;">
-                                </textarea>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <?php echo "<button class='btn btn-success float-right' onclick='SaveSummative(summative.value, $thisStudID, $ModID, $CompID)'>Submit</button>" ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <!-- end of content -->
         </div>
     </div>
@@ -208,12 +206,13 @@ include "factory/getClassList.php";
             })
         }
 
-        function SaveSummative(feedback, s_id, m_id, c_id) {
+        function SaveSummative(s_id, m_id, c_id) {
+            var temp = s_id + "summative";
             $.ajax({
                 url: "factory/saveSummativeFeedback.php",
                 type: "POST",
                 data: {
-                    comments: feedback,
+                    comments: document.getElementById(temp).value,
                     StudID: s_id,
                     ModID: m_id,
                     CompID: c_id
@@ -279,6 +278,27 @@ include "factory/getClassList.php";
                         }
                     
                 })
+            }
+        }
+
+        function PublishFeedback(c_id) {
+            if (confirm("Confirm Publish Feedback to selected students?")) {
+                var selectedStudents = $(".chkbox:checked").map(function() {
+                    return this.value;
+                }).toArray();
+                $.ajax({
+                    url: "factory/publishFeedback.php",
+                    type: "POST",
+                    data: {
+                        CompID: c_id,
+                        students: selectedStudents
+                    },
+                    success: function(result) {
+                        alert(result);
+                        location.reload();
+                    }
+                })
+                
             }
         }
     </script>

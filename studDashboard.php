@@ -38,7 +38,6 @@
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $coins = $row['coins'];
-
   ?>
 <!DOCTYPE html>
 <html lang="en">
