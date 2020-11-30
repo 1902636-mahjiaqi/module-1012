@@ -89,7 +89,8 @@ include "factory/getClassList.php";
                             <th>Name</th>
                             <th>Email</th>
                             <th>Marks</th>
-                            <th>Feedback Published</th>
+                            <th style='text-align:center'>Feedback Published</th>
+                            <th style='text-align:center'>Grades Published</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -112,6 +113,15 @@ include "factory/getClassList.php";
                                     $thisPublished = $row1['Publish'];
                                 }
 
+                                $sql2 = "SELECT * FROM grades where StudID = $thisStudID and CompID = $CompID";
+                                $result2 = $conn->query($sql2);
+
+                                if ($result2->num_rows == 1) {
+                                    $row2 = $result2->fetch_assoc();
+                                    $thisGradesPublished = $row2['Publish'];
+                                }
+
+
                                 echo "<tr>";
                                 echo "<td><input class='chkbox' type=" . 'checkbox' . " name='studentID' value=" . $row['AccID'] . " /></td>";
                                 echo "<td>" . $row['Name'] . "</td>";
@@ -132,7 +142,15 @@ include "factory/getClassList.php";
                                     }
 
                                     echo "<script> document.getElementById('" .$thisStudID. "published').disabled = true </script>";
+                                    echo "</td> <td style='text-align:center'>";
+                                    if ($thisGradesPublished == 1) {
+                                        echo "<input type='checkbox'  id='" .$thisStudID. "gradesPublished' checked>";
+                                    }
+                                    else {
+                                        echo "<input type='checkbox' id='" .$thisStudID. "gradesPublished'>";
+                                    }
                                     echo "</td> <td>";
+                                    echo "<script> document.getElementById('" .$thisStudID. "gradesPublished').disabled = true </script>";
                                     echo '<button class="btn btn-info float-left" data-toggle="modal"';
                                     echo 'data-target="#myModal-sm' .$thisStudID. '">Summative Feedback </button>';
                                     echo "<div>";
