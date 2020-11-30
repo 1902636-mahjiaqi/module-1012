@@ -13,7 +13,8 @@ if ($conn->connect_error) {
     $message = "Error connecting to database!"; //don't print out real error
     $success = false;
 } else {
-    $stmt = $conn->prepare("SELECT Weightage FROM components WHERE ModID=" . $_POST['ModID'] . " AND CompID=" . $_POST['CompID']);
+//    $stmt = $conn->prepare("SELECT Weightage FROM components WHERE ModID=" . $_POST['ModID'] . " AND CompID=" . $_POST['CompID']);
+    $stmt = $conn->prepare("SELECT Weightage FROM components WHERE ModID=" . $_POST['ModID']);
     //execute query and check for error at same time
     if (!$stmt->execute()) {
         $message = "Database error."; //. $conn->error;
