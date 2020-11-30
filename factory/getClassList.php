@@ -31,7 +31,7 @@ if ($conn->connect_error) {
       WHERE grades.CompID =" . $CompID);
   }
 
-  $stmt2 = $conn->prepare("SELECT * FROM components WHERE ModID =". $ModID . " AND subComponentStatus = 2");
+  $stmt2 = $conn->prepare("SELECT * FROM components WHERE ModID = ". $ModID . " AND subComponentStatus = 2");
 
   //execute query and check for error at same time
   if (!$stmt->execute()) {

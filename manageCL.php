@@ -7,16 +7,19 @@
 //session_start();
 //for Session profID
 $profID = 1902676;
-$CompID = 60;
-$_SESSION['ModID'] = 1;
+
+//$_SESSION['CompID'] = 60;
+$CompID = $_SESSION['CompID'];
+//$_SESSION['ModID'] = 1;
 // $ModID = 1;
 $ModID = $_SESSION['ModID'];
-$_SESSION["ModTitle"] = "How Not to Buy Apple";
-// if (!empty($CompID)) {
-//     $CompID = $_SESSION['CompID'];
-// }
+//$_SESSION["ModTitle"] = "How Not to Buy Apple";
+if (!empty($CompID)) {
+    $CompID = $_SESSION['CompID'];
+}
 
 include "factory/getClassList.php";
+
 ?>
 
 
@@ -31,7 +34,7 @@ include "factory/getClassList.php";
 
                 <!-- content -->
                 <h4> <?php echo $_SESSION["ModTitle"] ?>
-                    <button class="btn btn-info float-right ml-2" data-toggle="modal" data-target="#myModal-fb">Formative Feedback </button>
+                    <button class="btn btn-info float-right ml-2" data-toggle="modal" data-target="#myModal-fb">Formative Feedback</button>
 
                     <!-- <input class="btn btn-success float-right" type="file" accept=".xlxs"> -->
                     <button class="upload_btn btn btn-success float-right">Upload Class List</button>
@@ -66,7 +69,7 @@ include "factory/getClassList.php";
 
                         <!-- &nbsp;<button class="btn btn-success float-right" onclick="Test(component.value)">Submit</button> -->
                     </div>
-                    <input class="form-control mr-sm-2 ml-5" type="text" name="text" id = "stringInput" placeholder="Search Student..." aria-label="Search" onkeyup="SearchStudent()" />
+                    <input class="form-control mr-sm-2 ml-5" type="text" name="text" id="stringInput" placeholder="Search Student..." aria-label="Search" onkeyup="SearchStudent()" />
 
                     <!-- <button class="btn btn-outline-success btn-rounded" type="submit">Search</button> -->
                 </form>
@@ -76,7 +79,7 @@ include "factory/getClassList.php";
                             echo $_SESSION["CompTitle"];
                         }
                         ?> </h4>
-                <table class="table table-striped table-hover" id= "mytable">
+                <table class="table table-striped table-hover" id="mytable">
                     <thead>
                         <tr>
                             <th>
@@ -105,9 +108,9 @@ include "factory/getClassList.php";
                                 if (empty($row['Grade'])) {
                                     echo "-----";
                                 } else {
-                                    echo $row['Grade'] . ' ';
-                                    echo '<a href="#"><i class="fa fa-pencil text-dark"></i></a>';
-                                    echo "</td>";
+                                    echo "<div class='edit'>" . $row['Grade'] . ' ';
+                                    echo '<a href="#"><i class="fa fa-pencil text-dark" ></i></a>';
+                                    echo "</div></td>";
                                     echo "<td>";
                                     echo '<button class="btn btn-info float-left" data-toggle="modal"';
                                     echo 'data-target="#myModal-sm">Summative Feedback </button>';
@@ -121,9 +124,11 @@ include "factory/getClassList.php";
                     </tbody>
                 </table>
                 <br>
-                <button class="btn btn-danger float-right ml-2">Delete Selected Student Account</button>
-                <button class="btn btn-success float-right ml-2" data-toggle="modal" data-target="#myModal">Publish Grades to All students</button>
-                <button class="btn btn-info float-right" data-toggle="modal" data-target="#myModal">Publish Feedback to Selected Students</button>
+                <?php
+                echo "<button class='btn btn-danger float-right ml-2'>Delete Selected Student Account</button>";
+                echo "<button class='btn btn-success float-right ml-2' data-toggle='modal' data-target='#myModal' onclick='PublishGrades($CompID)'>Publish Grades to All students</button>";
+                echo "<button class='btn btn-info float-right' data-toggle='modal' data-target='#myModal'>Publish Feedback to Selected Students</button>";
+                ?>
             </div>
             <!-- Formative Feedback Form -->
             <div class="modal fade" id="myModal-fb" role="dialog">
@@ -171,10 +176,12 @@ include "factory/getClassList.php";
             <!-- end of content -->
         </div>
     </div>
-    
 
     <script>
-        
+        $(".fa").click(function() {
+            $('div.edit').replaceWith($('<input>' + $('div.edit').innerHTML + '</input>'));
+        });
+
         $('.upload_btn').on("click", function() {
             $('#html_btn').click();
         });
@@ -256,8 +263,25 @@ include "factory/getClassList.php";
             }
         }
 
+        function PublishGrades(c_id) {
+            if (confirm("Confirm Publish Grades to All Students?")) {
+                //alert(c_id);
+                $.ajax({
+                        url: "factory/publishGrades.php",
+                        type: "POST",
+                        data: {
+                            CompID: c_id
+                        },
+                        success: function(result) {
+                            alert(result);
+                            //updated items
+                            location.reload();
+                        }
+                    
+                })
+            }
+        }
     </script>
-
 
 
 </body>
