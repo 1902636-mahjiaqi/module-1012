@@ -84,8 +84,8 @@ $ModID = $_SESSION["ModID"];
                             <th><p>Component Weightage</p><input id="CompWei" type="number" min="0" max="100" class="form-control" id="ModName"></th>
                         </tr>
                     </table>
-                    <button class="btn btn-success float-right" onclick="CreateComp()">Create Component</button>
-                    <button class="btn btn-warning float-right" onclick="CreateCompAndSub()">Create and add SubComponent</button>
+                    <button class="btn btn-success float-right ml-2" onclick="CreateComp()">Create Component</button>
+                    <button class="btn btn-warning float-right ml-2" onclick="CreateCompAndSub()">Create and add SubComponent</button>
                 </div>
             </div>
         </div>
