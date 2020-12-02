@@ -1,6 +1,8 @@
-<?php session_start(); ?>
+<?php
+include_once "factory/usersClass.php";
+include_once "factory/usersInterface.php";
+?>
 
-<!-- insert here is isset session login show nav bar content, else hide nav bar content -->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#"><?php include "./interface/head/title.php" ?></a>
@@ -10,19 +12,23 @@
 
       <nav class="collapse navbar-collapse" id="navbarSupportedContent">
            <ul class="navbar-nav mr-auto">
-              <!-- <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
-               -->
-              <!-- <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                  <nav class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <nav class="dropdown-divider"></nav>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                  </nav>
-              </li> -->
+           <?php
+
+            if (!isset($_SESSION['sessionToken'])) { 
+                echo '<a class="navbar-brand" href="index.php"><?php include "./interface/head/title.php" ?></a>';
+            }
+            else {
+                if ($_SESSION['sessionToken']->getUserType() == "2") {
+                echo '<a class="navbar-brand" href="studDashboard.php"><?php include "./interface/head/title.php" ?></a>';
+                }
+                else if ($_SESSION['sessionToken']->getUserType() == "0") {
+                echo '<a class="navbar-brand" href="adminDashboard.php"><?php include "./interface/head/title.php" ?></a>';
+                }
+                else {
+                echo '<a class="navbar-brand" href="index.php"><?php include "./interface/head/title.php" ?></a>';
+                }
+            }
+            ?>
           </ul>
           <?php if (isset($_SESSION['sessionToken'])) {
             echo "<ul class='navbar-nav navbar-right'>";
