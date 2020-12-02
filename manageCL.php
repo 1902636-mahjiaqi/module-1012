@@ -43,7 +43,9 @@ $profID = $_SESSION['sessionToken']->getUser();
 //$_SESSION['CompID'] = 60;
 //$CompID = $_SESSION['CompID'];
 $ModID = $_SESSION['ModID'];
-$CompID = $_SESSION['CompID'];
+if (isset($_SESSION['CompID'])){
+    $CompID = $_SESSION['CompID'];
+}
 //$_SESSION["ModTitle"] = "How Not to Buy Apple";
 if (!empty($CompID)) {
     $CompID = $_SESSION['CompID'];
@@ -78,7 +80,9 @@ include "factory/getClassList.php";
 
                         <select name="component" onchange="ChangeComponent(component.value)">
                             <?php
-                            echo "<option disabled selected>" . "Select a Component..." . "</option>";
+                            if (!isset($_SESSION['CompID'])) {
+                                echo "<option disabled selected>" . "Select a Component..." . "</option>";
+                            }
                             if ($success) {
                                 // echo "<option disabled selected>" . "Select Component..." . "</option>";
                                 for ($i = 0; $i < $subResult->num_rows; $i++) {
@@ -86,8 +90,12 @@ include "factory/getClassList.php";
                                     $thisTitle = $row['Title'];
                                     $thisWeightage = $row['Weightage'];
                                     $thisID = $row['ID'];
-
-                                    echo "<option value=" . $row['CompID'] . ">" . $thisTitle . " (" . $thisWeightage . "%)" . "</option>";
+                                    if ($row['CompID'] == $_SESSION['CompID']) {
+                                        echo "<option value='" . $row["CompID"] . "' selected>" . $thisTitle . " (" . $thisWeightage . "%) </option>";
+                                    }
+                                    else {
+                                        echo "<option value=" . $row['CompID'] . ">" . $thisTitle . " (" . $thisWeightage . "%)" . "</option>";
+                                    }
                                 }
                             }
 
@@ -215,8 +223,8 @@ include "factory/getClassList.php";
                 <br>
                 <?php
                 if (isset($_SESSION['CompID'])) {
-                    echo "<button class='btn btn-danger float-right ml-2'>Delete Selected Student Account</button>";
-                    echo "<button class='btn btn-success float-right ml-2' data-toggle='modal' data-target='#myModal' onclick='PublishGrades($CompID)'>Publish Grades to All students</button>";
+                    echo "<button class='btn btn-danger float-right ml-2' onClick='DeleteStudents($ModID)'>Delete Selected Student Account</button>";
+                    echo "<button class='btn btn-success float-right ml-2'  onclick='PublishGrades($CompID)'>Publish Grades to Selected students</button>";
                     echo "<button class='btn btn-info float-right' data-toggle='modal' data-target='#myModal' onclick='PublishFeedback($CompID)'>Publish Feedback to Selected Students</button>";
                 }
 
@@ -340,17 +348,20 @@ include "factory/getClassList.php";
 
         function PublishGrades(c_id) {
             if (confirm("Confirm Publish Grades to All Students?")) {
+                var selectedStudents = $(".chkbox:checked").map(function() {
+                    return this.value;
+                }).toArray();
                 //alert(c_id);
                 $.ajax({
                         url: "factory/publishGrades.php",
                         type: "POST",
                         data: {
-                            CompID: c_id
+                            CompID: c_id,
+                            students: selectedStudents
                         },
                         success: function(result) {
-                            alert(result);
-                            //updated items
-                            location.reload();
+                            alert(result)
+                            //location.reload();
                         }
                     
                 })
@@ -370,7 +381,47 @@ include "factory/getClassList.php";
                         students: selectedStudents
                     },
                     success: function(result) {
-                        alert(result);
+                        location.reload();
+                    }
+                })
+                
+            }
+        }
+
+        function PublishFeedback(c_id) {
+            if (confirm("Confirm Publish Feedback to selected students?")) {
+                var selectedStudents = $(".chkbox:checked").map(function() {
+                    return this.value;
+                }).toArray();
+                $.ajax({
+                    url: "factory/publishFeedback.php",
+                    type: "POST",
+                    data: {
+                        CompID: c_id,
+                        students: selectedStudents
+                    },
+                    success: function(result) {
+                        location.reload();
+                    }
+                })
+                
+            }
+        }
+
+        function DeleteStudents(m_id) {
+            if (confirm("Confirm delete selected students?")) {
+                var selectedStudents = $(".chkbox:checked").map(function() {
+                    return this.value;
+                }).toArray();
+                $.ajax({
+                    url: "factory/deleteStudents.php",
+                    type: "POST",
+                    data: {
+                        ModID: m_id,
+                        students: selectedStudents
+                    },
+                    success: function(data) {
+                        alert(data);
                         location.reload();
                     }
                 })
