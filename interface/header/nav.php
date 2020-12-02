@@ -3,7 +3,7 @@
 <!-- insert here is isset session login show nav bar content, else hide nav bar content -->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#"><?php include "./interface/head/title.php" ?></a>
+      <a class="navbar-brand" href="index.php"><?php include "./interface/head/title.php" ?></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
@@ -25,10 +25,25 @@
               </li> -->
           </ul>
           <?php if (isset($_SESSION['sessionToken'])) {
+              
+              
+              $UType = "";
+              $UName = $_SESSION['AcName'];
+              if($_SESSION['AcType'] == 0){
+                  $UType = "Admin: ";
+              }
+              else if ($_SESSION['AcType'] == 1){
+                  $UType = "Prof: ";
+              }
+              else {
+                  $UType = "Stud: ";
+              }
+              
             echo "<ul class='navbar-nav navbar-right'>";
+            echo "<li><p class='nav-link'>Hello, ".$UType.$UName."</p></li>";
             echo "<li class='nav-item active'>";
-                    echo "<a class='nav-link' href='_logout.php'>Logout</a>";
-                echo "</li>";
+            echo "<a class='nav-link' href='_logout.php'>Logout</a>";
+            echo "</li>";
             echo "</ul>";
           } ?>
       </nav>
