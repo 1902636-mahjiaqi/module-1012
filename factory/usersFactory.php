@@ -4,10 +4,10 @@
   include "usersClass.php";
 
   class usersFactory {
-    public function createUser($row, $data) {
+    public function createUser($row) {
       $user = $row['AccID'];
       $name = $row['Name'];
-      $userType = $row['AccType'];
+      $userType = $row['AccType'];  
       $emailAddr = $row['Email'];
 
       if ($row['AccType'] == 0) {
@@ -20,7 +20,7 @@
 
       # Student Object
       else if ($row['AccType'] == 2) {
-        $userObject = new students($user, $name, $userType, $emailAddr, $data);
+        $userObject = new students($user, $name, $userType, $emailAddr);
       }
       
       return $userObject;

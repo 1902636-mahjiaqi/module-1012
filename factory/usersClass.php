@@ -10,12 +10,11 @@
     private $emailAddr;
     private $data;
 
-    function __construct($user, $name, $userType, $emailAddr, $data) {
+    function __construct($user, $name, $userType, $emailAddr) {
       $this->user = $user;
       $this->name = $name;
       $this->userType = $userType;
       $this->emailAddr = $emailAddr;
-      $this->data = $data;
     }
 
     public function getUser() {
@@ -41,6 +40,10 @@
     public function getData() {
       return $this->data;
     }
+
+    public function setData($data) {
+      $this->data = $data;
+    }
     
   }
 
@@ -48,7 +51,7 @@
     private $user;
     private $name;
     private $userType;
-    private $module;
+    private $module = array();
     private $emailAddr;
     private $classList = array();
 
@@ -57,7 +60,8 @@
       $this->name = $name;
       $this->userType = $userType;
       $this->emailAddr = $emailAddr;
-      //array_push($this->clasList, $classList);
+      // array_push($this->module, $module);
+      //array_push($this->classList, $classList);
     }
 
     public function getUser() {

@@ -38,6 +38,7 @@
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $coins = $row['coins'];
+
   ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -129,7 +130,7 @@
                 coin = <?php echo $coins ?>;
                 
                 ctx.font = "30px arial";
-                ctx.fillText("Current Coin: " + coin, 10, 50); // insert coin here
+                ctx.fillText("Current Coin: " + coin, 0, 30); // insert coin here
                 
 
                 drawMap()
@@ -223,13 +224,17 @@
                       ctx.fillStyle = '#fff';
                       ctx.fillRect(0, 0, canvas.width, canvas.height);
                       ctx.fillStyle = '#000';
-                      ctx.fillText("Current Coin: " + coin, 10, 50); // insert coin here
+                      ctx.fillText("Current Coin: " + coin, 0, 30); // insert coin here
                       
                       drawMap()
                       cf.clearRect(-w, -h, w * 2, h * 2)
                     }
+                    updateHashState();
                   }
-                updateHashState();
+
+                  else {
+                    alert("Not enough coins");
+                  }
                 }
               }
 

@@ -66,17 +66,8 @@ if ($success == true) {
       $row = $result->fetch_assoc();
       $result->free_result();
       $user = $row['AccID'];
-      $sql1 = "SELECT data FROM game WHERE AccID = '$user'";
-      $result1 = $conn->query($sql1);
-      if ($result1->num_rows == 1) {
-        $row1 = $result1->fetch_assoc();
-        $result1->free_result();
-        $data = $row1['data'];
-      }
-      else {
-        $data = "";
-      }
-      $_SESSION['sessionToken'] = usersFactory::createUser($row, $data);
+      
+      $_SESSION['sessionToken'] = usersFactory::createUser($row);
       $_SESSION['status'] = time();
       if ($_SESSION['sessionToken']->getUserType() == 0) {
         header('Location:adminDashboard.php');
@@ -87,6 +78,16 @@ if ($success == true) {
       }
 
       else if ($_SESSION['sessionToken']->getUserType() == 2) {
+        $sql3 = "SELECT data FROM game WHERE AccID = '" .$_SESSION['sessionToken']->getUser(). "'";
+        $result3 = $conn->query($sql3);
+        if ($result3->num_rows == 1) {
+          $row3 = $result3->fetch_assoc();
+          $result3->free_result();
+          $_SESSION['sessionToken']->setData($row3['data']);
+        }
+        else {
+          $data = "";
+        }
         header('Location:studDashboard.php' .$_SESSION['sessionToken']->getData());
       }
     }

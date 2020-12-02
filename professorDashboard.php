@@ -13,7 +13,6 @@ include_once "factory/usersInterface.php";
     // session_start();
     
     $profID = $_SESSION['sessionToken']->getUser();
-    //$profID = 1902676;
 
     include "factory/moduleProcesses.php";
     ?>

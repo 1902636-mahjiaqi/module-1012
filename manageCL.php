@@ -1,18 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php include_once "factory/usersClass.php";
+include_once "factory/usersInterface.php";?>
 <?php include "interface/head/head.php" ?>
 <?php include "interface/header/header.php" ?>
 
 <?php
+
 //session_start();
 //for Session profID
-$profID = 1902676;
+  if (!isset($_SESSION['sessionToken'])) {
+      session_unset();
+      $_SESSION = array();
+      session_destroy();
+      header('Location:index.php');
+    }
+
+    else {
+      if ($_SESSION['sessionToken']->getUserType() == "2") {
+        header("Location:studDashboard.php");
+      }
+      else if ($_SESSION['sessionToken']->getUserType() == "0") {
+        header("Location:adminDashboard.php");
+      }
+    }
+
+    if (isset($_SESSSION['status'])) {
+      if ($_SESSION['status'] - time() < 1800) {
+        $_SESSION['status'] = time();
+      }
+      else {
+        unset_session();
+        $_SESSION = array();
+        session_destroy();
+        header('Location:index.php');
+      }
+    }
+
+
+$profID = $_SESSION['sessionToken']->getUser();
 
 //$_SESSION['CompID'] = 60;
-$CompID = $_SESSION['CompID'];
-//$_SESSION['ModID'] = 1;
-// $ModID = 1;
+//$CompID = $_SESSION['CompID'];
 $ModID = $_SESSION['ModID'];
+$CompID = $_SESSION['CompID'];
 //$_SESSION["ModTitle"] = "How Not to Buy Apple";
 if (!empty($CompID)) {
     $CompID = $_SESSION['CompID'];
@@ -96,16 +127,17 @@ include "factory/getClassList.php";
                     <tbody>
                         <?php
                         //Generate Class List with Names, Emails, Marks
-                        if ($success) {
+                        if ($success and isset($_SESSION['CompID'])) {
                             for ($i = 0; $i < $result->num_rows; $i++) {
                                 $row = $result->fetch_assoc();
                                 $thisName = $row['Name'];
                                 $thisEmail = $row['Email'];
                                 $thisStudID = $row['StudID'];
+                                
                                 include_once "_dbconn.php";
 
-                                $sql = "SELECT * FROM feedback where StudID = $thisStudID AND ModID = $ModID AND CompID = $CompID";
-                                $result1 = $conn->query($sql);
+                                $sql1 = "SELECT * FROM feedback where StudID = $thisStudID AND ModID = $ModID AND CompID = $CompID";
+                                $result1 = $conn->query($sql1);
 
                                 if ($result1->num_rows == 1) {
                                     $row1 = $result1->fetch_assoc();
@@ -182,9 +214,12 @@ include "factory/getClassList.php";
                 </table>
                 <br>
                 <?php
-                echo "<button class='btn btn-danger float-right ml-2'>Delete Selected Student Account</button>";
-                echo "<button class='btn btn-success float-right ml-2' data-toggle='modal' data-target='#myModal' onclick='PublishGrades($CompID)'>Publish Grades to All students</button>";
-                echo "<button class='btn btn-info float-right' data-toggle='modal' data-target='#myModal' onclick='PublishFeedback($CompID)'>Publish Feedback to Selected Students</button>";
+                if (isset($_SESSION['CompID'])) {
+                    echo "<button class='btn btn-danger float-right ml-2'>Delete Selected Student Account</button>";
+                    echo "<button class='btn btn-success float-right ml-2' data-toggle='modal' data-target='#myModal' onclick='PublishGrades($CompID)'>Publish Grades to All students</button>";
+                    echo "<button class='btn btn-info float-right' data-toggle='modal' data-target='#myModal' onclick='PublishFeedback($CompID)'>Publish Feedback to Selected Students</button>";
+                }
+
                 ?>
             </div>
 
@@ -274,6 +309,7 @@ include "factory/getClassList.php";
                     CompID: c_id
                 },
                 success: function(data) {
+                    alert(data);
                     //updated items
                     location.reload();
                 }
