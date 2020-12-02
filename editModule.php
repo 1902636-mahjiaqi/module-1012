@@ -89,7 +89,7 @@
                         //updated items
                         //Update onclick
                         document.getElementById("Uppy" + id).setAttribute( "onClick", "UpWeight("+ id +","+ newInp +")" );
-                        document.getElementById("Status" + id).innerHTML = "Updated";
+                        // document.getElementById("Status" + id).innerHTML = "Updated";
                         document.getElementById("TtlWt").innerHTML = newWeight;
                     }
                 });
