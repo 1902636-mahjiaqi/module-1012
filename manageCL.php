@@ -37,6 +37,7 @@ include "factory/getClassList.php";
                     <!-- <button class=" btn btn-success float-right" data-toggle="modal" data-target="#myModal">Upload Class
                     List</button> -->
                 </h4>
+<<<<<<< Updated upstream
                 <form class="form-inline mr-auto mb-4">
                     <div class="dropdown">
 
@@ -53,6 +54,22 @@ include "factory/getClassList.php";
 
                                         echo "<option value=" . $row['Title'] . ">" . $thisTitle . " (" . $thisWeightage . "%)" . "</option>";
                                     }
+=======
+                <form class="form-inline mr-auto mt-3" method="post">
+                    <div class="dropdown">
+                        <select class="form-control" name="component" onchange="ChangeComponent(component.value)">
+                            <?php
+                            echo "<option disabled selected>" . "Select a Component..." . "</option>";
+                            if ($success) {
+                                // echo "<option disabled selected>" . "Select Component..." . "</option>";
+                                for ($i = 0; $i < $subResult->num_rows; $i++) {
+                                    $row = $subResult->fetch_assoc();
+                                    $thisTitle = $row['Title'];
+                                    $thisWeightage = $row['Weightage'];
+                                    $thisID = $row['ID'];
+
+                                    echo "<option value=" . $row['CompID'] . ">" . $thisTitle . " (" . $thisWeightage . "%)" . "</option>";
+>>>>>>> Stashed changes
                                 }
                                 echo "<input type='submit'  value='Submit'>";
                                 //echo "<button class=\"btn btn-info float-right ml-2\" onclick='EditMod(" . $thisID . ",\"" . $thisTitle . "\")'>Load Component</button>";
@@ -60,8 +77,14 @@ include "factory/getClassList.php";
 
                         </select>
                     </div>
+<<<<<<< Updated upstream
                     <input class="form-control mr-sm-2 ml-2" type="text" placeholder="Search" aria-label="Search" align="center" />
                     <button class="btn btn-outline-success btn-rounded" type="submit">Search</button>
+=======
+                    <!-- <input class="form-control mr-sm-2 ml-5" type="text" name="text" id="stringInput" placeholder="Search Student..." aria-label="Search" onkeyup="SearchStudent()" /> -->
+
+                    <!-- <button class="btn btn-outline-success btn-rounded" type="submit">Search</button> -->
+>>>>>>> Stashed changes
                 </form>
 
                 <!-- <h4> <?php
