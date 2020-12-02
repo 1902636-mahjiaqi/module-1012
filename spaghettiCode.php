@@ -12,6 +12,10 @@
 </html>
 
 <?php
+
+$_SESSION['ModID'] = 1;
+$ModID = $_SESSION['ModID'];
+
 if (isset($_POST["submit"])) {
 
 
@@ -28,29 +32,58 @@ if (isset($_POST["submit"])) {
     $file = $_FILES['file']['tmp_name'];
     $handle = fopen($file, "r");
     $c = 1;
+
+
     while (($filesop = fgetcsv($handle, 1000, ",")) !== false) {
         $StudID = $filesop[0];
         $StudName = $filesop[1];
         $StudEmail = $filesop[2];
         $StudPass = $filesop[3];
-        $sql = "INSERT INTO accounts 
-          VALUES ('$StudID', '$StudName', '$StudEmail', '$StudPass', 2)";
-        $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_execute($stmt);
+        $stmt = $conn->prepare("INSERT INTO accounts 
+        VALUES ('$StudID', '$StudName', '$StudEmail', '$StudPass', 2)");
+        $stmt->execute();
+
+        $stmt2 = $conn->prepare("INSERT INTO game (AccID, coins)
+        VALUES ('$StudID', 0)");
+        $stmt2->execute();
+
+        $stmt3 = $conn->prepare("INSERT INTO class (ModID, StudID, TotalCoins)
+        VALUES ($ModID, '$StudID', 0)");
+        $stmt3->execute();
+
+        $stmt4 = $conn->prepare("SELECT * FROM components WHERE ModID = " . $ModID . " AND MainCompID IS NOT NULL");
+        $stmt4->execute();
+        $result = $stmt4->get_result();
+
+        for ($i = 0; $i < $result->num_rows; $i++) {
+
+            $row = $result->fetch_assoc();
+            $thisCompID = $row['CompID'];
+
+            //for loop to find number of subcomponents in module
+            $stmt5 = $conn->prepare("INSERT INTO grades (CompID, StudID, Grade, Publish)
+            VALUES ($thisCompID, '$StudID', 0, 0)");
+            $stmt5->execute();
+
+            //for loop to find number of subcomponents in module
+            $stmt6 = $conn->prepare("INSERT INTO feedback (FeedbkType, StudID, ModID, CompID, Publish)
+            VALUES (2, '$StudID', $ModID, $thisCompID, 0)");
+            $stmt6->execute();
+        }
 
         if (!$stmt->execute()) {
             $message = "Database error."; //. $conn->error;
             $success = false;
-
-            $stmt->close(); //close right after executing
-
-            // $sql2 ="INSERT INTO grades (CompID, StudID, Publish)
-            // VALUES ($_POST['CompID'], '$StudID', 0)";
-            // $stmt2 = mysqli_prepare($conn, $sql2);
-            // mysqli_stmt_execute($stmt2);
-
-            $c = $c + 1;
         }
+
+        $c = $c + 1;
     }
+    $stmt->close(); //close right after executing
+    $stmt2->close(); //close right after executing
+    $stmt3->close(); //close right after executing
+    $stmt4->close(); //close right after executing
+    $stmt5->close(); //close right after executing
+    $stmt6->close(); //close right after executing
+
 }
 ?>

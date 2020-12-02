@@ -167,9 +167,7 @@ include "factory/getClassList.php";
                                 echo "<td>" . $row['Name'] . "</td>";
                                 echo "<td>" . $row['Email'] . "</td>";
                                 echo "<td>";
-                                if (empty($row['Grade'])) {
-                                    echo "-----";
-                                } else {
+
                                     echo "<div class='edit'>" . $row['Grade'] . ' ';
                                     echo '<a href="#"><i class="fa fa-pencil text-dark" ></i></a>';
                                     echo "</div></td>";
@@ -210,7 +208,7 @@ include "factory/getClassList.php";
                                     echo "<div class='modal-footer'>";
                                     echo "<button class='btn btn-success float-right' onclick='SaveSummative(" . $thisStudID . ", " . $ModID . ", " . $CompID . ")'> Submit </button> ";
                                     echo "</div> </div> </div> </div>";
-                                }
+                                
 
                                 echo "</td>";
                                 echo "<script> document.getElementById('" .$thisStudID. "summative').value = '" .$thisComment. "' </script>";
