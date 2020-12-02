@@ -4,7 +4,6 @@
     <?php include "interface/header/header.php" ?>
 
     <?php
-    session_start();
     //for Session profID
     $profID = 1902676;
     $ModID = $_SESSION['ModID'];
@@ -201,9 +200,9 @@
                                     //title
                                     $totalWeight = $totalWeight + $row['Weightage'];
                                     echo "<tr>";
-                                    echo "<div id='Row" . $i . "'><td><p>" . $row['Title'] . "</p></td>";
-                                    echo "<td><input id='WT" . $row['CompID'] . "' type='number' min=0 max=100 value=" . $row['Weightage'] . "><p id='Status" . $row['CompID'] . "'></p></td>";
-                                    echo '<td><button class="btn btn-danger float-right" onclick="DeleteComp(' . $row['CompID'] . ', ' . $row['subComponentStatus'] . ', \'' . $row['Title'] . '\')">Delete Component</button>';
+                                    echo "<div id='Row" . $i . "'><th><p>" . $row['Title'] . "</p></th>";
+                                    echo "<td><input class='form-control' id='WT" . $row['CompID'] . "' type='number' min=0 max=100 value=" . $row['Weightage'] . "><p id='Status" . $row['CompID'] . "'></p></td>";
+                                    echo '<td><button class="btn btn-danger float-right ml-2" onclick="DeleteComp(' . $row['CompID'] . ', ' . $row['subComponentStatus'] . ', \'' . $row['Title'] . '\')">Delete Component</button>';
                                     echo '<button id="Uppy'.$row['CompID'].'" class="btn btn-info float-right ml-2" onclick="UpWeight(' . $row['CompID'] . ', ' . $row['Weightage'] . ')">Update Weightage</button>';
                                     echo '<button class="btn btn-success float-right ml-2" onclick="CreateSub(' . $row['CompID'] . ',\''.$row['Title'].'\', '. $row['Weightage'] .')">Add SubComponenet</button></td>';
                                     echo "</tr>";
@@ -211,9 +210,9 @@
                                 //If it is a component with subcomponents
                                 elseif ($SubComType == 1) {
                                     echo "<tr><div id='Row" . $i . "'>";
-                                    echo "<td><p>" . $row['Title'] . "</p></td>";
+                                    echo "<th><p>" . $row['Title'] . "</p></th>";
                                     echo "<td></td>";
-                                    echo '<td><button class="btn btn-danger float-right" onclick="DeleteComp(' . $row['CompID'] . ', ' . $row['subComponentStatus'] . ', \'' . $row['Title'] . '\')">Delete Component</button>';
+                                    echo '<td><button class="btn btn-danger float-right ml-2" onclick="DeleteComp(' . $row['CompID'] . ', ' . $row['subComponentStatus'] . ', \'' . $row['Title'] . '\')">Delete Component</button>';
                                     echo '<button class="btn btn-success float-right ml-2" onclick="CreateSub(' . $row['CompID'] . ',\''.$row['Title'].'\',0 )">Add SubComponenet</button></td>';
                                     echo "</div></tr>";
                                     //reset $subResults so it searches from the start
@@ -227,9 +226,9 @@
                                             //Echo SubComp
                                             echo "<td><p>&nbsp&nbsp&nbsp&nbsp" . $subRow['Title'] . "</p></td>";
                                             //Echo Subcomp weightage
-                                            echo "<td><input id='WT" . $subRow['CompID'] . "' type='number' min=0 max=100 value=" . $subRow['Weightage'] . "><p id='Status" . $subRow['CompID'] . "'></p></td>";
+                                            echo "<td><input class='form-control' id='WT" . $subRow['CompID'] . "' type='number' min=0 max=100 value=" . $subRow['Weightage'] . "><p id='Status" . $subRow['CompID'] . "'></p></td>";
                                             //buttons
-                                            echo '<td><button class="btn btn-danger float-right" onclick="DeleteComp(' . $subRow['CompID'] . ', ' . $subRow['subComponentStatus'] . ', \'' . $subRow['Title'] . '\')">Delete Subcomponent</button>';
+                                            echo '<td><button class="btn btn-danger float-right ml-2" onclick="DeleteComp(' . $subRow['CompID'] . ', ' . $subRow['subComponentStatus'] . ', \'' . $subRow['Title'] . '\')">Delete Subcomponent</button>';
                                             echo '<button id="Uppy'.$row['CompID'].'" class="btn btn-info float-right ml-2" onclick="UpWeight(' . $subRow['CompID'] . ', ' . $subRow['Weightage'] . ')">Update Weightage</button></td>';
                                             echo "</div></tr>";
                                         }

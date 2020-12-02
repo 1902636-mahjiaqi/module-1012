@@ -120,8 +120,8 @@ else {
                             <th><p>SubComponent Weightage</p><input id="SubCompWei" type="number" min="0" max="100" class="form-control" id="ModName"></th>
                         </tr>
                     </table>
-                    <button class="btn btn-success float-right" onclick="CreateSubComp()">Create SubComponent</button>
-                    <button class="btn btn-warning float-right" onclick="CreateAnotherSubComp()">Create SubComponent and add another SubComponent</button>
+                    <button class="btn btn-success float-right ml-2" onclick="CreateSubComp()">Create SubComponent</button>
+                    <button class="btn btn-warning float-right ml-2" onclick="CreateAnotherSubComp()">Create SubComponent and add another SubComponent</button>
                 </div>
             </div>
         </div>

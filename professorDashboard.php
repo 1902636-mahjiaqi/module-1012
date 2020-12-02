@@ -10,7 +10,7 @@ include_once "factory/usersInterface.php";
     <?php
     // Professor default page
     //for Session profID
-    session_start();
+    // session_start();
     
     $profID = $_SESSION['sessionToken']->getUser();
     //$profID = 1902676;
