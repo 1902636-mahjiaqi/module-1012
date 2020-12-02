@@ -36,7 +36,12 @@
             margin: auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
+            width: 35%;
+        }
+
+        .modal-item {
+            width: 94%;
+            margin: 0 auto;
         }
 
         /* The Close Button */
@@ -72,6 +77,7 @@
                 document.getElementById("WT" + id).value = weightage;
                 document.getElementById("Status" + id).innerHTML = "Reverted";
             } else {
+                alert("Update Weightage Successfully.");
                 //POST to update weight into DB
                 $.ajax({
                     url: "factory/UpdateWeight.php",
@@ -204,7 +210,7 @@
                                     echo "<td><input class='form-control' id='WT" . $row['CompID'] . "' type='number' min=0 max=100 value=" . $row['Weightage'] . "><p id='Status" . $row['CompID'] . "'></p></td>";
                                     echo '<td><button class="btn btn-danger float-right ml-2" onclick="DeleteComp(' . $row['CompID'] . ', ' . $row['subComponentStatus'] . ', \'' . $row['Title'] . '\')">Delete Component</button>';
                                     echo '<button id="Uppy'.$row['CompID'].'" class="btn btn-info float-right ml-2" onclick="UpWeight(' . $row['CompID'] . ', ' . $row['Weightage'] . ')">Update Weightage</button>';
-                                    echo '<button class="btn btn-success float-right ml-2" onclick="CreateSub(' . $row['CompID'] . ',\''.$row['Title'].'\', '. $row['Weightage'] .')">Add SubComponenet</button></td>';
+                                    echo '<button class="btn btn-success float-right ml-2" onclick="CreateSub(' . $row['CompID'] . ',\''.$row['Title'].'\', '. $row['Weightage'] .')">Add SubComponent</button></td>';
                                     echo "</tr>";
                                 }
                                 //If it is a component with subcomponents
@@ -213,7 +219,7 @@
                                     echo "<th><p>" . $row['Title'] . "</p></th>";
                                     echo "<td></td>";
                                     echo '<td><button class="btn btn-danger float-right ml-2" onclick="DeleteComp(' . $row['CompID'] . ', ' . $row['subComponentStatus'] . ', \'' . $row['Title'] . '\')">Delete Component</button>';
-                                    echo '<button class="btn btn-success float-right ml-2" onclick="CreateSub(' . $row['CompID'] . ',\''.$row['Title'].'\',0 )">Add SubComponenet</button></td>';
+                                    echo '<button class="btn btn-success float-right ml-2" onclick="CreateSub(' . $row['CompID'] . ',\''.$row['Title'].'\',0 )">Add SubComponent</button></td>';
                                     echo "</div></tr>";
                                     //reset $subResults so it searches from the start
                                     mysqli_data_seek($subResult, 0);
@@ -257,15 +263,24 @@
 
             <!-- Modal content -->
             <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>ALERT Deleting the following component "<a id="CompName"> </a>" will also delete the following SubComponents: </p>
+            <div class="modal-header">
+                    <h3>Confirm Delete</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-item">
+                <p>Deleting the following component "<a id="CompName"> </a>" will also delete the following SubComponents: </p>
                 <br>
                 <p id="SubCompNames"></p>
-                <button onclick="DeleteAllSub()">Confirm Delete</button>
-                <button id="CancelAllDel">Cancel</button>
+                
+                <button class="btn btn-danger mt-2 float-right ml-2" onclick="DeleteAllSub()">Confirm Delete</button>
+                <button class="btn btn-secondary mt-2 float-right ml-2" id="CancelAllDel">Cancel</button>
+                </div>
             </div>
 
         </div>
+
     </body>
     <script>
         // Get the modal
