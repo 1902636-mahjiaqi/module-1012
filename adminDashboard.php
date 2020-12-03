@@ -7,6 +7,14 @@ include_once "_dbconn.php";
 
 session_start();
 
+if (isset($_SESSION['success'])) {
+  if ($_SESSION['success'] == 1) {
+    echo "<script> alert('Account Created successfully');</script>";
+    $_SESSION['success'] = 0;
+  }
+}
+
+
 if (!isset($_SESSION['sessionToken'])) {
   session_unset();
   $_SESSION = array();

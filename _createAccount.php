@@ -116,7 +116,8 @@ if ($success == true) {
 			$result = $conn->query($sql);
 
 			if ($result) {
-                echo "<script type='text/javascript'>alert('Account Created successfully');</script>";
+				$_SESSION['success'] = 1;
+                echo "<script> alert('Account Created successfully');</script>";
                 header("Location:adminDashboard.php");
 			}
 			else {
