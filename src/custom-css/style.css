@@ -31,3 +31,9 @@ table td { vertical-align: middle !important; }
 }
 
 .pbtm { padding-bottom: 0px !important; }
+
+select {
+  padding: 5px 5px;
+  border-radius: 5px;
+  width: 300px;
+}

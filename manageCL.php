@@ -108,7 +108,7 @@ include "factory/getClassList.php";
 
                         <!-- &nbsp;<button class="btn btn-success float-right" onclick="Test(component.value)">Submit</button> -->
                     </div>
-                    <input class="form-control mr-sm-2 ml-5" type="text" name="text" id="stringInput" placeholder="Search Student..." aria-label="Search" onkeyup="SearchStudent()" />
+                    <!-- <input class="form-control mr-sm-2 ml-5" type="text" name="text" id="stringInput" placeholder="Search Student..." aria-label="Search" onkeyup="SearchStudent()" /> -->
 
                     <!-- <button class="btn btn-outline-success btn-rounded" type="submit">Search</button> -->
                 </form>
