@@ -96,18 +96,37 @@ if ($success == true) {
 	}
 
 	else {
-		$sql = "INSERT INTO accounts (AccID, Name, Email, Password, AccType) VALUES ($accID, '$name', '$email', '$password', 1)";
-		$result = $conn->query($sql);
-
-		if ($result) {
-                    echo "<script type='text/javascript'>alert('Account Created successfully');</script>";
-                    header("Location:adminDashboard.php");
-		}
-		else {
-			$errorMsg .= "Error: " .$sql. "<br>" .$conn->error;
+		$checkEmail = "SELECT * FROM accounts WHERE Email = '$email'";
+		$checkEmailResult = $conn->query($checkEmail);
+		if ($checkEmailResult->num_rows > 0) {
+			$errorMsg = "Email already exists";
 			$_SESSION['errorMsg'] = $errorMsg;
 			header("Location:adminDashboard.php");
 		}
+
+		$checkID = "SELECT * FROM accounts WHERE AccID = $accID";
+		$checkIDResult = $conn->query($checkID);
+		if ($checkIDResult->num_rows > 0) {
+			$errorMsg = "Account ID already exists";
+			$_SESSION['errorMsg'] = $errorMsg;
+			header("Location:adminDashboard.php");
+		}
+		else {
+			$sql = "INSERT INTO accounts (AccID, Name, Email, Password, AccType) VALUES ($accID, '$name', '$email', '$password', 1)";
+			$result = $conn->query($sql);
+
+			if ($result) {
+                echo "<script type='text/javascript'>alert('Account Created successfully');</script>";
+                header("Location:adminDashboard.php");
+			}
+			else {
+				$errorMsg .= "Error: " .$sql. "<br>" .$conn->error;
+				$_SESSION['errorMsg'] = $errorMsg;
+				header("Location:adminDashboard.php");
+			}			
+		}
+
+
 	}
 }
 

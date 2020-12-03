@@ -34,11 +34,6 @@ if (isset($_SESSSION['status'])) {
     header('Location:index.php');
   }
 }
-if (isset($_SESSION['errorMsg'])) {
-  echo "<script> $(document).ready(function(){
-    $('#newAccount').modal('show');
-    }); </script>";
-}
 
 ?>
 
@@ -46,6 +41,13 @@ if (isset($_SESSION['errorMsg'])) {
 <html lang="en">
   <?php include "interface/head/head.php"; ?>
   <?php include "interface/header/header.php"; ?>
+  <?php
+  if (isset($_SESSION['errorMsg'])) {
+  echo "<script> $(window).on('load', function(){
+    $('#newAccount').modal('show');
+    }); </script>";
+  }
+  ?>
   <script>
    function ajax(accID){
      $.ajax({
@@ -179,7 +181,6 @@ if (isset($_SESSION['errorMsg'])) {
 
                 <?php
                   if (isset($_SESSION["errorMsg"])) {
-                    echo "<script> alert(" . $_SESSION['errorMsg'] . ") </script>";
                     echo "<div class='alert alert-danger'>" . $_SESSION['errorMsg'] . "</div>";
                   }
 
