@@ -79,7 +79,9 @@ if (isset($_SESSION['errorMsg'])) {
           <table class="table table-borderless table-hover">
             <thead>
               <tr>
-                <th scope="col">Account Login</th>
+                <th scope="col">Account ID</th>
+                <th scope="col">Account Type</th>
+                <th scope="col">Email</th>
                 <th scope="col">Name</th>
                 <th scope="col"></th>
               </tr>
@@ -92,13 +94,27 @@ if (isset($_SESSION['errorMsg'])) {
 
               if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
+                  $AccType = "";
+                  if ($row['AccType'] == 0){
+                      $AccType = "Admin";
+                  }
+                  else if ($row['AccType'] == 1){
+                      $AccType = "Professor";
+                  }
+                  else{
+                      $AccType = "Student";
+                  }
                   echo "<tr>";
                   echo "<td scope='row'>" . $row['AccID'] . "</td>";
+                  echo "<td>" . $AccType . "</td>";
+                  echo "<td>" . $row['Email'] . "</td>";
                   echo "<td>" . $row['Name'] . "</td>";
                   echo "<td>";
-                  echo "<form method='post' action='_deleteAccount.php>";
-                  echo "<button type'button'id='button' class='btn btn-danger' onclick='ajax(" . $row['AccID'] . ")'> Delete </button>";
-                  echo "</form>";
+                  if($row['AccType'] != 2){
+                    echo "<form method='post' action='_deleteAccount.php>";
+                    echo "<button type'button'id='button' class='btn btn-danger' onclick='ajax(" . $row['AccID'] . ")'> Delete </button>";
+                    echo "</form>";
+                  }
                   echo "</tr>";
                 }
               }
