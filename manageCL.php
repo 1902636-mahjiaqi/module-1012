@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include_once "factory/usersClass.php";
-include_once "factory/usersInterface.php";?>
+include_once "factory/usersInterface.php"; ?>
 <?php include "interface/head/head.php" ?>
 <?php include "interface/header/header.php" ?>
 
@@ -9,33 +9,29 @@ include_once "factory/usersInterface.php";?>
 
 //session_start();
 //for Session profID
-  if (!isset($_SESSION['sessionToken'])) {
-      session_unset();
-      $_SESSION = array();
-      session_destroy();
-      header('Location:index.php');
-    }
-
-    else {
-      if ($_SESSION['sessionToken']->getUserType() == "2") {
+if (!isset($_SESSION['sessionToken'])) {
+    session_unset();
+    $_SESSION = array();
+    session_destroy();
+    header('Location:index.php');
+} else {
+    if ($_SESSION['sessionToken']->getUserType() == "2") {
         header("Location:studDashboard.php");
-      }
-      else if ($_SESSION['sessionToken']->getUserType() == "0") {
+    } else if ($_SESSION['sessionToken']->getUserType() == "0") {
         header("Location:adminDashboard.php");
-      }
     }
+}
 
-    if (isset($_SESSION['status'])) {
-      if ($_SESSION['status'] - time() < 1800) {
+if (isset($_SESSION['status'])) {
+    if ($_SESSION['status'] - time() < 1800) {
         $_SESSION['status'] = time();
-      }
-      else {
+    } else {
         unset_session();
         $_SESSION = array();
         session_destroy();
         header('Location:index.php');
-      }
     }
+}
 
 
 $profID = $_SESSION['sessionToken']->getUser();
@@ -43,14 +39,14 @@ $profID = $_SESSION['sessionToken']->getUser();
 
 
 //check for entering new mod
-if($_SESSION["NewMod"] == 1){
+if ($_SESSION["NewMod"] == 1) {
     $_SESSION['error'] = 0;
     $_SESSION["NewMod"] = 0;
     unset($_SESSION['CompID']);
 }
 
 $ModID = $_SESSION['ModID'];
-if (isset($_SESSION['CompID'])){
+if (isset($_SESSION['CompID'])) {
     $CompID = $_SESSION['CompID'];
 }
 //$_SESSION["ModTitle"] = "How Not to Buy Apple";
@@ -58,9 +54,11 @@ if (!empty($CompID)) {
     $CompID = $_SESSION['CompID'];
 }
 
-if ($_SESSION['error'] == 1){
-    echo "<script> alert('Non csv document uploaded error') </script>";
-    $_SESSION['error'] = 0;
+if (!empty($_SESSION['error'])) {
+    if ($_SESSION['error'] == 1) {
+        echo "<script> alert('Non csv document uploaded error') </script>";
+        $_SESSION['error'] = 0;
+    }
 }
 
 include "factory/getClassList.php";
@@ -76,7 +74,7 @@ include "factory/getClassList.php";
                 <div class="d-flex justify-content-between pt-3 pb-3">
                     <h5>Manage Class List</h5>
                 </div>
-                
+
                 <!-- content -->
                 <h4> <?php echo $_SESSION["ModTitle"] ?>
                     <button class="btn btn-info float-right ml-2" data-toggle="modal" data-target="#myModal-fb">Formative Feedback</button>
@@ -85,28 +83,28 @@ include "factory/getClassList.php";
                     <button class="upload_btn btn btn-success float-right" data-toggle="modal" data-target="#uploadFileModal">Upload Class List</button>
 
                     <div id="uploadFileModal" class="modal fade" role="dialog">
-                      <div class="modal-dialog">
+                        <div class="modal-dialog">
 
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">File upload form</h4>
-                          </div>
-                          <div class="modal-body">
-                            <!-- Form -->
-                            <form method='POST' action='_uploadCL.php' enctype="multipart/form-data">
-                              Select file : <input type='file' name='file' id='file' class='form-control' ><br>
-                              <input type='submit' name="submit" class='btn btn-info' value='Upload' id='btn_upload'>
-                            </form>
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">File upload form</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Form -->
+                                    <form method='POST' action='_uploadCL.php' enctype="multipart/form-data">
+                                        Select file : <input type='file' name='file' id='file' class='form-control'><br>
+                                        <input type='submit' name="submit" class='btn btn-info' value='Upload' id='btn_upload'>
+                                    </form>
 
-                            <!-- Preview-->
-                            <div id='preview'></div>
-                          </div>
-                     
+                                    <!-- Preview-->
+                                    <div id='preview'></div>
+                                </div>
+
+                            </div>
+
                         </div>
-
-                      </div>
                     </div>
 
 
@@ -129,8 +127,7 @@ include "factory/getClassList.php";
                                     $thisID = $row['ID'];
                                     if ($row['CompID'] == $_SESSION['CompID']) {
                                         echo "<option value='" . $row["CompID"] . "' selected>" . $thisTitle . " (" . $thisWeightage . "%) </option>";
-                                    }
-                                    else {
+                                    } else {
                                         echo "<option value=" . $row['CompID'] . ">" . $thisTitle . " (" . $thisWeightage . "%)" . "</option>";
                                     }
                                 }
@@ -178,7 +175,7 @@ include "factory/getClassList.php";
                                 $thisName = $row['Name'];
                                 $thisEmail = $row['Email'];
                                 $thisStudID = $row['StudID'];
-                                
+
                                 include_once "_dbconn.php";
 
                                 $sql1 = "SELECT * FROM feedback where StudID = $thisStudID AND ModID = $ModID AND CompID = $CompID";
@@ -205,33 +202,31 @@ include "factory/getClassList.php";
                                 echo "<td style='padding:5px'>";
 
                                 echo "<div>" . $row['Grade'] . " ";
-                                echo "<button type='button' class='btn btn-outline-primary float-right' data-toggle='modal' data-target='#gradesModal" .$thisStudID. "'>";
+                                echo "<button type='button' class='btn btn-outline-primary float-right' data-toggle='modal' data-target='#gradesModal" . $thisStudID . "'>";
                                 echo "<svg width='1em' height='1em' viewBox='0 0 20 20' class='bi bi-pencil' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>";
                                 echo "<path fill-rule='evenodd' d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/> </svg>";
                                 echo "</button> </div>";
                                 echo "</td>";
                                 echo "<td style='text-align:center'>";
                                 if ($thisPublished == 1) {
-                                    echo "<input type='checkbox'  id='" .$thisStudID. "published' checked>";
-                                }
-                                else {
-                                    echo "<input type='checkbox' id='" .$thisStudID. "published'>";
+                                    echo "<input type='checkbox'  id='" . $thisStudID . "published' checked>";
+                                } else {
+                                    echo "<input type='checkbox' id='" . $thisStudID . "published'>";
                                 }
 
-                                echo "<script> document.getElementById('" .$thisStudID. "published').disabled = true </script>";
+                                echo "<script> document.getElementById('" . $thisStudID . "published').disabled = true </script>";
                                 echo "</td> <td style='text-align:center'>";
                                 if ($thisGradesPublished == 1) {
-                                    echo "<input type='checkbox'  id='" .$thisStudID. "gradesPublished' checked>";
-                                }
-                                else {
-                                    echo "<input type='checkbox' id='" .$thisStudID. "gradesPublished'>";
+                                    echo "<input type='checkbox'  id='" . $thisStudID . "gradesPublished' checked>";
+                                } else {
+                                    echo "<input type='checkbox' id='" . $thisStudID . "gradesPublished'>";
                                 }
                                 echo "</td> <td>";
-                                echo "<script> document.getElementById('" .$thisStudID. "gradesPublished').disabled = true </script>";
+                                echo "<script> document.getElementById('" . $thisStudID . "gradesPublished').disabled = true </script>";
                                 echo '<button class="btn btn-info float-left" data-toggle="modal"';
-                                echo 'data-target="#myModal-sm' .$thisStudID. '">Summative Feedback </button>';
+                                echo 'data-target="#myModal-sm' . $thisStudID . '">Summative Feedback </button>';
                                 echo "<div>";
-                                echo "<div class='modal fade' id='myModal-sm" .$thisStudID. "' role='dialog'>";
+                                echo "<div class='modal fade' id='myModal-sm" . $thisStudID . "' role='dialog'>";
                                 echo "<div class='modal-dialog'>";
                                 echo "<div class='modal-content'>";
                                 echo "<div class='modal-header'>";
@@ -240,7 +235,7 @@ include "factory/getClassList.php";
                                 echo "</div>";
                                 echo "<div class='modal-body'>";
                                 echo "<form method='post'>";
-                                echo "<textarea id='" .$thisStudID. "summative' class='form-control' name='summative' rows='7' style='width:100%'>";
+                                echo "<textarea id='" . $thisStudID . "summative' class='form-control' name='summative' rows='7' style='width:100%'>";
                                 echo "</textarea>";
                                 echo "</form>";
                                 echo "</div>";
@@ -248,20 +243,20 @@ include "factory/getClassList.php";
                                 echo "<button class='btn btn-success float-right' onclick='SaveSummative(" . $thisStudID . ", " . $ModID . ", " . $CompID . ")'> Submit </button> ";
                                 echo "</div> </div> </div> </div>";
 
-                                echo "<div id='gradesModal" .$thisStudID. "' class='modal fade' role='dialog'>";
+                                echo "<div id='gradesModal" . $thisStudID . "' class='modal fade' role='dialog'>";
                                 echo "<div class='modal-dialog'>";
                                 echo "<div class='modal-content'>";
                                 echo "<div class='modal-header'>";
                                 echo "<h4 class='modal-title'> Edit Marks </h4>";
                                 echo "<button type='button' class='close' data-dismiss='modal'> &times; </button> </div>";
-                                echo "<div class='modal-body'> <input type='number' id='" .$thisStudID. "grades' min='1' max='100' value='" .$row['Grade']. "'> </div>";
+                                echo "<div class='modal-body'> <input type='number' id='" . $thisStudID . "grades' min='1' max='100' value='" . $row['Grade'] . "'> </div>";
                                 echo "<div class='modal-footer'>";
-                                echo "<button type='button' class='btn btn-success float-right' onclick='EditGrades(" .$thisStudID. ", " .$CompID. ")'>Submit</button> </div>";
+                                echo "<button type='button' class='btn btn-success float-right' onclick='EditGrades(" . $thisStudID . ", " . $CompID . ")'>Submit</button> </div>";
                                 echo "</div> </div> </div>";
-                                
+
 
                                 echo "</td>";
-                                echo "<script> document.getElementById('" .$thisStudID. "summative').value = '" .$thisComment. "' </script>";
+                                echo "<script> document.getElementById('" . $thisStudID . "summative').value = '" . $thisComment . "' </script>";
                                 //echo "<script> document.getElementById('" .$thisStudID. "grades').value = '" .$thisGrades. "' </script>";                                
                             }
                         }
@@ -272,8 +267,8 @@ include "factory/getClassList.php";
                 <br>
                 <?php
                 if (isset($_SESSION['CompID'])) {
-                    echo "<button class='btn btn-danger float-right ml-2' onClick='DeleteStudents($ModID)'>Delete Selected Student Account</button>";
-                    echo "<button class='btn btn-success float-right ml-2'  onclick='PublishGrades($CompID)'>Publish Grades to Selected students</button>";
+                    echo "<button class='btn btn-danger float-right ml-2' onClick='DeleteStudents($ModID)'>Delete Selected Student Accounts</button>";
+                    echo "<button class='btn btn-success float-right ml-2'  onclick='PublishGrades($CompID)'>Publish Grades to Selected Students</button>";
                     echo "<button class='btn btn-info float-right' data-toggle='modal' data-target='#myModal' onclick='PublishFeedback($CompID)'>Publish Feedback to Selected Students</button>";
                 }
 
@@ -358,7 +353,7 @@ include "factory/getClassList.php";
         function EditGrades(s_id, c_id) {
             var temp = s_id + "grades";
             var newG = document.getElementById(temp).value
-            if (newG < 0 || newG > 100){
+            if (newG < 0 || newG > 100) {
                 alert("Invalid Marks Entered (0 - 100 only)");
                 return 0;
             }
@@ -425,16 +420,16 @@ include "factory/getClassList.php";
                 }).toArray();
                 //alert(c_id);
                 $.ajax({
-                        url: "factory/publishGrades.php",
-                        type: "POST",
-                        data: {
-                            CompID: c_id,
-                            students: selectedStudents
-                        },
-                        success: function(result) {
-                            location.reload();
-                        }
-                    
+                    url: "factory/publishGrades.php",
+                    type: "POST",
+                    data: {
+                        CompID: c_id,
+                        students: selectedStudents
+                    },
+                    success: function(result) {
+                        location.reload();
+                    }
+
                 })
             }
         }
@@ -455,7 +450,7 @@ include "factory/getClassList.php";
                         location.reload();
                     }
                 })
-                
+
             }
         }
 
@@ -475,7 +470,7 @@ include "factory/getClassList.php";
                         location.reload();
                     }
                 })
-                
+
             }
         }
 
@@ -495,7 +490,7 @@ include "factory/getClassList.php";
                         location.reload();
                     }
                 })
-                
+
             }
         }
     </script>
