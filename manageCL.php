@@ -252,7 +252,7 @@ include "factory/getClassList.php";
                                 echo "<div class='modal-dialog'>";
                                 echo "<div class='modal-content'>";
                                 echo "<div class='modal-header'>";
-                                echo "<h4 class='modal-title'> Edit Grades </h4>";
+                                echo "<h4 class='modal-title'> Edit Marks </h4>";
                                 echo "<button type='button' class='close' data-dismiss='modal'> &times; </button> </div>";
                                 echo "<div class='modal-body'> <input type='number' id='" .$thisStudID. "grades' min='1' max='100' value='" .$row['Grade']. "'> </div>";
                                 echo "<div class='modal-footer'>";
