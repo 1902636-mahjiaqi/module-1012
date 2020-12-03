@@ -351,6 +351,11 @@ include "factory/getClassList.php";
 
         function EditGrades(s_id, c_id) {
             var temp = s_id + "grades";
+            var newG = document.getElementById(temp).value
+            if (newG < 0 || newG > 100){
+                alert("Invalid Marks Entered (0 - 100 only)");
+                return 0;
+            }
             $.ajax({
                 url: "factory/editGrades.php",
                 type: "POST",

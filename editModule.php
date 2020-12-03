@@ -69,6 +69,13 @@
             //check to make sure total Weightage is not more than 100
             var TotalWeight = document.getElementById("TtlWt").innerHTML;
             var newInp = parseInt(document.getElementById("WT" + id).value);
+            //check if negative number
+            if(newInp < 0){
+                alert("Error, Weightage cannot be a negative number");
+                document.getElementById("WT" + id).value = weightage;
+                document.getElementById("Status" + id).innerHTML = "Reverted";
+                return 0;
+            }
             var newWeight = (TotalWeight - weightage) + newInp;
             if (newWeight > 100) {
                 //error out
