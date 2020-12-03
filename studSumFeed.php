@@ -13,69 +13,29 @@
         <div class="col-xl-8 jumbotron bg-white">
           <!-- header -->
           <div class="d-flex justify-content-between p-3">
-            <h5>Student Feedback/Result</h5>
+            <h5>Student Student Formative Feedback</h5>
           </div>
           <!-- content -->
           <div class="p-3">
             <!-- insert module here -->
-            <button type="button" class="btn btn-primary" onclick="window.location.href='studSumFeed.php'">View Formative Feedback</button>
+            
             <!-- insert loop of quiz here -->
             <table class="table table-borderless table-hover">
             <thead>
               <tr>
                 <!-- insert component name here -->
                 <th>Module</th>
-                <th>Component</th>
-                <th>Grade</th>
                 <th>Feedback</th>
               </tr>
             </thead>
             <tbody>
               <?php
-              include "factory/getFeedback.php";
+              include "factory/getSumFeed.php";
                 $PrGrade = "";
                 foreach ($result as $a){
-                    if($a['Grade'] >= 86){
-                        $PrGrade = "A+";
-                    }
-                    else if($a['Grade'] >= 83 && $a['Grade'] < 85){
-                        $PrGrade = "A";
-                    }
-                    else if($a['Grade'] >= 80 && $a['Grade'] < 82){
-                        $PrGrade = "A-";
-                    }
-                    else if($a['Grade'] >= 77 && $a['Grade'] < 79){
-                        $PrGrade = "B+";
-                    }
-                    else if($a['Grade'] >= 74 && $a['Grade'] < 76){
-                        $PrGrade = "B";
-                    }
-                    else if($a['Grade'] >= 70 && $a['Grade'] < 73){
-                        $PrGrade = "B-";
-                    }
-                    else if($a['Grade'] >= 66 && $a['Grade'] < 69){
-                        $PrGrade = "C+";
-                    }
-                    else if($a['Grade'] >= 63 && $a['Grade'] < 65){
-                        $PrGrade = "C";
-                    }
-                    else if($a['Grade'] >= 60 && $a['Grade'] < 62){
-                        $PrGrade = "C-";
-                    }
-                    else if($a['Grade'] >= 53 && $a['Grade'] < 59){
-                        $PrGrade = "D+";
-                    }
-                    else if($a['Grade'] >= 50 && $a['Grade'] < 52){
-                        $PrGrade = "D";
-                    }
-                    else{
-                        $PrGrade = "F";
-                    }
                     echo "<tr>";
-                    echo "<td>".$a['MTitle']."</td>";
-                    echo "<td>".$a['CTitle']."</td>";
-                    echo "<td>".$PrGrade."</td>";
-                    echo '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewFeedback">View Feedback</button></td>';
+                    echo "<td>".$a['Title']."</td>";
+                    echo "<td>".$a['Comments']."</td>";
                     echo "</tr>";
                 }
                 

@@ -70,6 +70,7 @@ if ($success == true) {
       $_SESSION['sessionToken'] = usersFactory::createUser($row);
       $_SESSION['status'] = time();
       $_SESSION['AcType'] = $_SESSION['sessionToken']->getUserType();
+      $_SESSION['UserNum'] = $_SESSION['sessionToken']->getUser();
       $_SESSION['AcName'] = $_SESSION['sessionToken']->getName();
       if ($_SESSION['sessionToken']->getUserType() == 0) {
         header('Location:adminDashboard.php');
