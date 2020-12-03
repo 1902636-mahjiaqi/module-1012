@@ -25,7 +25,7 @@ include_once "factory/usersInterface.php";?>
       }
     }
 
-    if (isset($_SESSSION['status'])) {
+    if (isset($_SESSION['status'])) {
       if ($_SESSION['status'] - time() < 1800) {
         $_SESSION['status'] = time();
       }
@@ -55,6 +55,11 @@ if (isset($_SESSION['CompID'])){
 //$_SESSION["ModTitle"] = "How Not to Buy Apple";
 if (!empty($CompID)) {
     $CompID = $_SESSION['CompID'];
+}
+
+if ($_SESSION['error'] == 1){
+    echo "<script> alert('Non csv document uploaded error') </script>";
+    $_SESSION['error'] = 0;
 }
 
 include "factory/getClassList.php";

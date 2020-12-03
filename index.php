@@ -20,11 +20,6 @@
     
   }
 
-  else if (!isset($_SESSION['sessionToken'])) {
-    session_unset();
-    $_SESSION = array();
-    session_destroy();
-  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +51,7 @@
           </label>
 
           <?php
-            if(isset($_SESSION["errorMsg"])) {
+            if (isset($_SESSION["errorMsg"])) {
               echo "<div class='alert alert-danger'>" . $_SESSION['errorMsg'] . "</div>";
             }
           ?>
