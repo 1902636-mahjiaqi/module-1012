@@ -13,12 +13,16 @@ if ($conn->connect_error) {
   $success = false;
 } else {
     $CurrUser = $_SESSION['UserNum'];
-    $stmt = $conn->prepare("SELECT g.Grade, c.Title As CTitle, m.Title AS MTitle, g.Publish FROM grades g 
+    $stmt = $conn->prepare("SELECT * 
+        FROM (SELECT DISTINCT g.CompID AS MainID, g.StudID, g.Grade, c.Title As CTitle, m.Title AS MTitle, g.Publish 
+        FROM grades g 
         INNER JOIN components c 
                 ON c.CompID = g.CompID
         INNER JOIN module m
                 ON c.ModID = m.ModID
-        WHERE g.Publish = 1 AND g.StudID=".$CurrUser);
+        WHERE g.Publish = 1 AND g.StudID=".$CurrUser.") p
+        LEFT JOIN feedback f
+	ON p.StudID = f.StudID AND p.MainID = f.CompID;");
 
   //execute query and check for error at same time
   if (!$stmt->execute()) {

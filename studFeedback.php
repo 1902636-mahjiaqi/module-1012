@@ -71,11 +71,12 @@
                     else{
                         $PrGrade = "F";
                     }
+                    
                     echo "<tr>";
                     echo "<td>".$a['MTitle']."</td>";
                     echo "<td>".$a['CTitle']."</td>";
                     echo "<td>".$PrGrade."</td>";
-                    echo '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewFeedback">View Feedback</button></td>';
+                    echo '<td><button id="BtnUpdate99" onclick="myFunction(\''.$a['Comments'].'\')" type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewFeedback" >View Feedback</button></td>';
                     echo "</tr>";
                 }
                 
@@ -101,15 +102,6 @@
             
             <div class="modal-body">
               <!-- insert content here -->
-              <div class="d-flex justify-content-between">
-                <div class="formative">
-
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1"><h6>Formative Feedback</h6></label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" cols="25" readonly></textarea>
-                    </div>
-
-                </div>
                 <div class="summative">
                 
                     <div class="form-group">
@@ -118,7 +110,6 @@
                     </div>
 
                 </div>
-              </div>
               
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -129,5 +120,11 @@
           </div>
         </div>
       </div>
+      <script>
+          function myFunction(Num){
+              //alert(Num);
+              document.getElementById("exampleFormControlTextarea2").innerHTML = Num;
+          }
+      </script>
   </body>
 </html>
