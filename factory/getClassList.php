@@ -21,7 +21,7 @@ if ($conn->connect_error) {
       WHERE class.ModID = 1");
   } 
   else {
-    $stmt = $conn->prepare("SELECT * FROM class 
+    $stmt = $conn->prepare("SELECT DISTINCT * FROM class 
       INNER JOIN accounts 
       ON class.StudID = accounts.AccID
       INNER JOIN components 

@@ -1,19 +1,19 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <body>
     <form enctype="multipart/form-data" method="post" role="form">
-        <!-- <label>Upload Class List</label><br> -->
         <input type="file" name="file" id="file" size="150">
         <button type="submit" class="btn btn-default" name="submit" value="submit">Upload</button>
     </form>
 </body>
 
-</html>
+</html> -->
 
 <?php
 
-$_SESSION['ModID'] = 1;
+session_start();
+
 $ModID = $_SESSION['ModID'];
 
 if (isset($_POST["submit"])) {
@@ -59,7 +59,6 @@ if (isset($_POST["submit"])) {
 
             $row = $result->fetch_assoc();
             $thisCompID = $row['CompID'];
-
             //for loop to find number of subcomponents in module
             $stmt5 = $conn->prepare("INSERT INTO grades (CompID, StudID, Grade, Publish)
             VALUES ($thisCompID, '$StudID', 0, 0)");
@@ -84,6 +83,10 @@ if (isset($_POST["submit"])) {
     $stmt4->close(); //close right after executing
     $stmt5->close(); //close right after executing
     $stmt6->close(); //close right after executing
+    header('Location:manageCL.php');
+}
 
+else {
+    echo "Error";
 }
 ?>

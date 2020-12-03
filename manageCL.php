@@ -76,8 +76,33 @@ include "factory/getClassList.php";
                     <button class="btn btn-info float-right ml-2" data-toggle="modal" data-target="#myModal-fb">Formative Feedback</button>
 
                     <!-- <input class="btn btn-success float-right" type="file" accept=".xlxs"> -->
-                    <button class="upload_btn btn btn-success float-right">Upload Class List</button>
-                    <input id="html_btn" class="display-none" type='file' /><br>
+                    <button class="upload_btn btn btn-success float-right" data-toggle="modal" data-target="#uploadFileModal">Upload Class List</button>
+
+                    <div id="uploadFileModal" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">File upload form</h4>
+                          </div>
+                          <div class="modal-body">
+                            <!-- Form -->
+                            <form method='POST' action='_uploadCL.php' enctype="multipart/form-data">
+                              Select file : <input type='file' name='file' id='file' class='form-control' ><br>
+                              <input type='submit' name="submit" class='btn btn-info' value='Upload' id='btn_upload'>
+                            </form>
+
+                            <!-- Preview-->
+                            <div id='preview'></div>
+                          </div>
+                     
+                        </div>
+
+                      </div>
+                    </div>
+
 
                     <!-- <button class=" btn btn-success float-right" data-toggle="modal" data-target="#myModal">Upload Class List</button> -->
                 </h4>
@@ -161,10 +186,7 @@ include "factory/getClassList.php";
 
                                 $sql2 = "SELECT * FROM grades where StudID = $thisStudID and CompID = $CompID";
                                 $result2 = $conn->query($sql2);
-                                //echo "<script>alert('$thisStudID');</script>";
-                                //echo "<script>alert('$CompID');</script>";
                                 if ($result2->num_rows == 1) {
-                                    //echo "<script>alert('HIT');</script>";
                                     $row2 = $result2->fetch_assoc();
                                     $thisGradesPublished = $row2['Publish'];
                                 }
@@ -307,7 +329,6 @@ include "factory/getClassList.php";
                     CompID: c_id
                 },
                 success: function(result) {
-                    alert(result);
                     //updated items
                     location.reload();
                 }
@@ -369,7 +390,6 @@ include "factory/getClassList.php";
                             students: selectedStudents
                         },
                         success: function(result) {
-                            alert(result)
                             //location.reload();
                         }
                     
@@ -430,7 +450,6 @@ include "factory/getClassList.php";
                         students: selectedStudents
                     },
                     success: function(data) {
-                        alert(data);
                         location.reload();
                     }
                 })
