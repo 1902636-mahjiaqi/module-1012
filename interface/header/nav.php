@@ -30,18 +30,18 @@
               $UType = "";
               $UName = $_SESSION['AcName'];
               if($_SESSION['AcType'] == 0){
-                  $UType = "Admin: ";
+                  $UType = "Admin ";
               }
               else if ($_SESSION['AcType'] == 1){
-                  $UType = "Prof: ";
+                  $UType = "Prof ";
               }
               else {
-                  $UType = "Stud: ";
+                  $UType = "Stud ";
               }
               
             echo "<ul class='navbar-nav navbar-right'>";
-            echo "<li><p class='nav-link'>Hello, ".$UType.$UName."</p></li>";
-            echo "<li class='nav-item active'>";
+            echo "<li><p class='nav-link pbtm active'>Hello, <b>".$UType.$UName."</b></p></li>";
+            echo "<li class='nav-item'>";
             echo "<a class='nav-link' href='_logout.php'>Logout</a>";
             echo "</li>";
             echo "</ul>";
