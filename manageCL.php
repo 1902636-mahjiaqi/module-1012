@@ -44,6 +44,7 @@ $profID = $_SESSION['sessionToken']->getUser();
 
 //check for entering new mod
 if($_SESSION["NewMod"] == 1){
+    $_SESSION['error'] = 0;
     $_SESSION["NewMod"] = 0;
     unset($_SESSION['CompID']);
 }

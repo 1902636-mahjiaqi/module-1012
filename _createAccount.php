@@ -121,8 +121,7 @@ if ($success == true) {
                 header("Location:adminDashboard.php");
 			}
 			else {
-				$errorMsg .= "Error: " .$sql. "<br>" .$conn->error;
-				$_SESSION['errorMsg'] = $errorMsg;
+                                $_SESSION['errorMsg'] = $errorMsg;
 				header("Location:adminDashboard.php");
 			}			
 		}
