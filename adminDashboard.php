@@ -53,6 +53,7 @@ if (isset($_SESSION['errorMsg'])) {
           url: '_deleteAccount.php',
           data: {ID: accID},
           success: function(){
+              alert("Account deleted");
               window.location.replace("adminDashboard.php");
           }
         })

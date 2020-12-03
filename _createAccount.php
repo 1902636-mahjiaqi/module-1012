@@ -100,7 +100,8 @@ if ($success == true) {
 		$result = $conn->query($sql);
 
 		if ($result) {
-			header("Location:adminDashboard.php");
+                    echo "<script type='text/javascript'>alert('Account Created successfully');</script>";
+                    header("Location:adminDashboard.php");
 		}
 		else {
 			$errorMsg .= "Error: " .$sql. "<br>" .$conn->error;
