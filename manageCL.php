@@ -40,8 +40,14 @@ include_once "factory/usersInterface.php";?>
 
 $profID = $_SESSION['sessionToken']->getUser();
 
-//$_SESSION['CompID'] = 60;
-//$CompID = $_SESSION['CompID'];
+
+
+//check for entering new mod
+if($_SESSION["NewMod"] == 1){
+    $_SESSION["NewMod"] = 0;
+    unset($_SESSION['CompID']);
+}
+
 $ModID = $_SESSION['ModID'];
 if (isset($_SESSION['CompID'])){
     $CompID = $_SESSION['CompID'];
@@ -64,7 +70,7 @@ include "factory/getClassList.php";
                 <div class="d-flex justify-content-between pt-3 pb-3">
                     <h5>Manage Class List</h5>
                 </div>
-
+                
                 <!-- content -->
                 <h4> <?php echo $_SESSION["ModTitle"] ?>
                     <button class="btn btn-info float-right ml-2" data-toggle="modal" data-target="#myModal-fb">Formative Feedback</button>
@@ -114,9 +120,9 @@ include "factory/getClassList.php";
                 </form>
 
                 <h4> <?php
-                        if (!empty($CompID)) {
+                        /*if (!empty($CompID)) {
                             echo $_SESSION["CompTitle"];
-                        }
+                        }*/
                         ?> </h4>
                 <table class="table table-striped table-hover" id="mytable">
                     <thead>
@@ -155,8 +161,10 @@ include "factory/getClassList.php";
 
                                 $sql2 = "SELECT * FROM grades where StudID = $thisStudID and CompID = $CompID";
                                 $result2 = $conn->query($sql2);
-
+                                //echo "<script>alert('$thisStudID');</script>";
+                                //echo "<script>alert('$CompID');</script>";
                                 if ($result2->num_rows == 1) {
+                                    //echo "<script>alert('HIT');</script>";
                                     $row2 = $result2->fetch_assoc();
                                     $thisGradesPublished = $row2['Publish'];
                                 }
@@ -309,14 +317,17 @@ include "factory/getClassList.php";
         function ChangeComponent(c_id) {
             //alert(c_id);
             $.ajax({
-                url: "factory/SessionIDComp.php",
+                url: "factory/SessionIDComp2.php",
                 type: "POST",
                 data: {
                     CompID: c_id
                 },
                 success: function(data) {
-                    alert(data);
+                    //alert(data);
+                    location.reload();
                     //updated items
+                    //tell the page not to reset page fully
+                    $_SESSION["NewMod"] = 0;
                     location.reload();
                 }
             })

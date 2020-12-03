@@ -17,7 +17,8 @@ if ($conn->connect_error) {
   if (empty($CompID)) {
     $stmt = $conn->prepare("SELECT * FROM class 
       INNER JOIN accounts 
-      ON class.StudID = accounts.AccID");
+      ON class.StudID = accounts.AccID
+      WHERE class.ModID = 1");
   } 
   else {
     $stmt = $conn->prepare("SELECT * FROM class 
