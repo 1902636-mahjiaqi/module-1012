@@ -196,52 +196,67 @@ include "factory/getClassList.php";
                                 echo "<td><input class='chkbox' type=" . 'checkbox' . " name='studentID' value=" . $row['AccID'] . " /></td>";
                                 echo "<td>" . $row['Name'] . "</td>";
                                 echo "<td>" . $row['Email'] . "</td>";
-                                echo "<td>";
+                                echo "<td style='padding:5px'>";
 
-                                    echo "<div class='edit'>" . $row['Grade'] . ' ';
-                                    echo '<a href="#"><i class="fa fa-pencil text-dark" ></i></a>';
-                                    echo "</div></td>";
-                                    echo "<td style='text-align:center'>";
-                                    if ($thisPublished == 1) {
-                                        echo "<input type='checkbox'  id='" .$thisStudID. "published' checked>";
-                                    }
-                                    else {
-                                        echo "<input type='checkbox' id='" .$thisStudID. "published'>";
-                                    }
+                                echo "<div>" . $row['Grade'] . " ";
+                                echo "<button type='button' class='btn btn-outline-primary float-right' data-toggle='modal' data-target='#gradesModal" .$thisStudID. "'>";
+                                echo "<svg width='1em' height='1em' viewBox='0 0 20 20' class='bi bi-pencil' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>";
+                                echo "<path fill-rule='evenodd' d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/> </svg>";
+                                echo "</button> </div>";
+                                echo "</td>";
+                                echo "<td style='text-align:center'>";
+                                if ($thisPublished == 1) {
+                                    echo "<input type='checkbox'  id='" .$thisStudID. "published' checked>";
+                                }
+                                else {
+                                    echo "<input type='checkbox' id='" .$thisStudID. "published'>";
+                                }
 
-                                    echo "<script> document.getElementById('" .$thisStudID. "published').disabled = true </script>";
-                                    echo "</td> <td style='text-align:center'>";
-                                    if ($thisGradesPublished == 1) {
-                                        echo "<input type='checkbox'  id='" .$thisStudID. "gradesPublished' checked>";
-                                    }
-                                    else {
-                                        echo "<input type='checkbox' id='" .$thisStudID. "gradesPublished'>";
-                                    }
-                                    echo "</td> <td>";
-                                    echo "<script> document.getElementById('" .$thisStudID. "gradesPublished').disabled = true </script>";
-                                    echo '<button class="btn btn-info float-left" data-toggle="modal"';
-                                    echo 'data-target="#myModal-sm' .$thisStudID. '">Summative Feedback </button>';
-                                    echo "<div>";
-                                    echo "<div class='modal fade' id='myModal-sm" .$thisStudID. "' role='dialog'>";
-                                    echo "<div class='modal-dialog'>";
-                                    echo "<div class='modal-content'>";
-                                    echo "<div class='modal-header'>";
-                                    echo "<h4 class='modal-title'> Summative Feedback </h4>";
-                                    echo "<button type='button' class='close' data-dismiss='modal'> &times; </button>";
-                                    echo "</div>";
-                                    echo "<div class='modal-body'>";
-                                    echo "<form method='post'>";
-                                    echo "<textarea id='" .$thisStudID. "summative' class='form-control' name='summative' rows='7' style='width:100%'>";
-                                    echo "</textarea>";
-                                    echo "</form>";
-                                    echo "</div>";
-                                    echo "<div class='modal-footer'>";
-                                    echo "<button class='btn btn-success float-right' onclick='SaveSummative(" . $thisStudID . ", " . $ModID . ", " . $CompID . ")'> Submit </button> ";
-                                    echo "</div> </div> </div> </div>";
+                                echo "<script> document.getElementById('" .$thisStudID. "published').disabled = true </script>";
+                                echo "</td> <td style='text-align:center'>";
+                                if ($thisGradesPublished == 1) {
+                                    echo "<input type='checkbox'  id='" .$thisStudID. "gradesPublished' checked>";
+                                }
+                                else {
+                                    echo "<input type='checkbox' id='" .$thisStudID. "gradesPublished'>";
+                                }
+                                echo "</td> <td>";
+                                echo "<script> document.getElementById('" .$thisStudID. "gradesPublished').disabled = true </script>";
+                                echo '<button class="btn btn-info float-left" data-toggle="modal"';
+                                echo 'data-target="#myModal-sm' .$thisStudID. '">Summative Feedback </button>';
+                                echo "<div>";
+                                echo "<div class='modal fade' id='myModal-sm" .$thisStudID. "' role='dialog'>";
+                                echo "<div class='modal-dialog'>";
+                                echo "<div class='modal-content'>";
+                                echo "<div class='modal-header'>";
+                                echo "<h4 class='modal-title'> Summative Feedback </h4>";
+                                echo "<button type='button' class='close' data-dismiss='modal'> &times; </button>";
+                                echo "</div>";
+                                echo "<div class='modal-body'>";
+                                echo "<form method='post'>";
+                                echo "<textarea id='" .$thisStudID. "summative' class='form-control' name='summative' rows='7' style='width:100%'>";
+                                echo "</textarea>";
+                                echo "</form>";
+                                echo "</div>";
+                                echo "<div class='modal-footer'>";
+                                echo "<button class='btn btn-success float-right' onclick='SaveSummative(" . $thisStudID . ", " . $ModID . ", " . $CompID . ")'> Submit </button> ";
+                                echo "</div> </div> </div> </div>";
+
+                                echo "<div id='gradesModal" .$thisStudID. "' class='modal fade' role='dialog'>";
+                                echo "<div class='modal-dialog'>";
+                                echo "<div class='modal-content'>";
+                                echo "<div class='modal-header'>";
+                                echo "<h4 class='modal-title'> Edit Grades </h4>";
+                                echo "<button type='button' class='close' data-dismiss='modal'> &times; </button> </div>";
+                                echo "<div class='modal-body'> <input type='number' id='" .$thisStudID. "grades' min='1' max='100' value='" .$row['Grade']. "'> </div>";
+                                echo "<div class='modal-footer'>";
+                                echo "<button type='button' class='btn btn-success float-right' onclick='EditGrades(" .$thisStudID. ", " .$CompID. ")'>Submit</button> </div>";
+                                echo "</div> </div> </div>";
                                 
 
                                 echo "</td>";
                                 echo "<script> document.getElementById('" .$thisStudID. "summative').value = '" .$thisComment. "' </script>";
+                                //echo "<script> document.getElementById('" .$thisStudID. "grades').value = '" .$thisGrades. "' </script>";                                
                             }
                         }
                         echo "</tr>";
@@ -305,7 +320,6 @@ include "factory/getClassList.php";
                     CompID: c_id
                 },
                 success: function(result) {
-                    alert(result);
                     //updated items
                     location.reload();
                 },
@@ -326,6 +340,23 @@ include "factory/getClassList.php";
                     comments: document.getElementById(temp).value,
                     StudID: s_id,
                     ModID: m_id,
+                    CompID: c_id
+                },
+                success: function(result) {
+                    //updated items
+                    location.reload();
+                }
+            })
+        }
+
+        function EditGrades(s_id, c_id) {
+            var temp = s_id + "grades";
+            $.ajax({
+                url: "factory/editGrades.php",
+                type: "POST",
+                data: {
+                    grades: document.getElementById(temp).value,
+                    StudID: s_id,
                     CompID: c_id
                 },
                 success: function(result) {
@@ -390,7 +421,7 @@ include "factory/getClassList.php";
                             students: selectedStudents
                         },
                         success: function(result) {
-                            //location.reload();
+                            location.reload();
                         }
                     
                 })
